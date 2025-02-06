@@ -11,13 +11,13 @@ const HorizontalSlider: React.FC = () =>
 
     // custom dimensions
     const imageWidth = 3000;
-    const imageHeight = 150;
+    const imageHeight = 200;
 
 
     // Container dimensions (adjust as needed)
     //   const containerWidth = 800;
     const containerWidth = 1000; // Width of the visible area
-    const containerHeight = 160; 
+    const containerHeight = 145; 
 
 
   // Handle scroll left

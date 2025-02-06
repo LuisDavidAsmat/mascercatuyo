@@ -3,15 +3,44 @@ import { categories } from "../../pages/PublishServiceOffer/ServicesData";
 import { Link } from "react-router";
 import './NavBar.css'
 
+interface ButtonNav {
+  label: string;
+  icon?: React.ReactNode;
+  extraIcon?: React.ReactNode;
+  dropdown?: React.ReactNode;
+  onClick?: () => void;
+}
+
+interface Category {
+  value: string;
+  label: string;
+}
+
+
+
 const NavBar = () =>  
 {
+
+  const [dropdownVisibility, setDropdownVisibility] = useState<{ [key: string]: boolean }>({
+    Categorias: false,
+    "Quiénes somos": false,
+    Soporte: false,
+  });
+
+  const toggleDropdown = (label: string) => {
+    setDropdownVisibility((prevState) => ({
+      ...prevState,
+      [label]: !prevState[label],
+    }));
+  };
+  
   const [showCategories, setShowCategories] = useState(false);
 
   const toggleCategories = () => {
     setShowCategories(!showCategories);
   };
 
-  const buttons = [
+  const buttons: ButtonNav[] = [
     {
       label: "Categorias",
       icon: (
@@ -44,7 +73,15 @@ const NavBar = () =>
         </svg>
         
       ),
+      dropdown: (
+        <div className="absolute w-[30rem] top-12 left-0 bg-white text-black p-4 rounded shadow-lg">
+          <p>En Más Cerca Tuyo, creemos en el poder de la comunidad y la cercanía. Nacimos con la misión de conectar a quienes necesitan un servicio para su hogar con los trabajadores locales formales e informales que pueden ofrecerlo, de manera rápida, confiable y dentro de la misma localidad.
+Nuestra plataforma surge como respuesta a la dificultad de encontrar de manera rápida y accesible a profesionales confiables en el sector de servicios esenciales para el hogar y la necesidad de dar mayor visibilidad a trabajadores independientes. Más que una webapp, somos un espacio digital de encuentro, donde cada conexión impulsa la economía local y fortalece los lazos comunitarios.
+Si buscas un servicio o quieres ofrecer tu talento, estás en el lugar indicado. ¡Conectemos juntos! 🚀</p>
+        </div>
+      ),
     },
+    
     {
       label: "Testimonios de la comunidad",
       icon: (
@@ -56,6 +93,13 @@ const NavBar = () =>
           <path d="M12.78 13.639c.55 0 1.02-.196 1.412-.588.392-.391.587-.862.587-1.412 0-.55-.195-1.02-.587-1.413a1.926 1.926 0 0 0-1.413-.587c-.25 0-.487.046-.712.137-.225.092-.43.213-.613.363L8.78 8.789v-.3l2.675-1.35c.184.15.388.27.613.362.225.092.462.138.712.138.55 0 1.021-.196 1.413-.588.392-.391.587-.862.587-1.412 0-.55-.195-1.02-.587-1.413a1.926 1.926 0 0 0-1.413-.587c-.55 0-1.02.196-1.412.587a1.926 1.926 0 0 0-.588 1.413v.15l-2.675 1.35a2.377 2.377 0 0 0-.612-.363 1.87 1.87 0 0 0-.713-.137c-.55 0-1.02.196-1.412.587a1.926 1.926 0 0 0-.588 1.413c0 .55.196 1.02.588 1.412.391.392.862.588 1.412.588.25 0 .488-.046.713-.138.225-.091.429-.212.612-.362l2.675 1.35v.15c0 .55.196 1.02.588 1.412.391.392.862.588 1.412.588Zm-12.5 7v-18c0-.55.195-1.02.587-1.413A1.926 1.926 0 0 1 2.279.64h16c.55 0 1.021.196 1.413.587.392.392.587.863.587 1.413v12c0 .55-.195 1.02-.587 1.412a1.926 1.926 0 0 1-1.413.588h-14l-4 4Zm3.15-6h14.85v-12h-16v13.125l1.15-1.125Z" />
         </svg>
       ),
+      onClick: () => {
+        // Scroll to the testimonios section
+        const testimoniosSection = document.getElementById("testimonios");
+        if (testimoniosSection) {
+          testimoniosSection.scrollIntoView({ behavior: "smooth" });
+        }
+      },
     },
     {
       label: "Soporte",
@@ -69,6 +113,17 @@ const NavBar = () =>
           <path fillRule="evenodd" clipRule="evenodd" d="m12 13.94 5.47-5.47 1.06 1.06L12 16.06 5.47 9.53l1.06-1.06L12 13.94Z" />
         </svg>
       ),
+      dropdown: (
+        <div className={` w-48 absolute left-0 top-10 flex flex-col flex-start z-50 gap-4 rounded-md shadow-lg p-4  bg-white border`}>
+          <button type="button" className={`py-2 w-full rounded-md text-sm text-black flex flex-col gap-2`}  >
+              <span className="bg-red-100 w-full py-2 px-3 rounded-lg">FAQs</span>
+              <span className="bg-red-100 w-full py-2 px-3 rounded-lg">Ayuda</span>
+              <span className="bg-red-100 w-full py-2 px-3 rounded-lg">Términos y condiciones</span>
+              
+          </button>
+         
+      </div>
+      ),
     },
   ];
 
@@ -76,15 +131,28 @@ const NavBar = () =>
     <div  className="py-4 flex gap-8 text-white">
       {buttons.map((button, index) => 
       (
-        <div  key={index} className="relative">
-          <button type="button"  className="flex items-center gap-2 text-sm"
-           onClick={button.label === "Categorias" ? toggleCategories : undefined}
+        <div key={index} className="relative" >
+          <button 
+          type="button"  
+          className="flex items-center gap-2 text-sm"
+          onClick={() => 
+          {
+            if(button.onClick)
+            {
+              button.onClick();
+            } else if (button.dropdown) 
+            {
+              toggleDropdown(button.label);
+            }
+            
+
+          }}
           >
             {button.icon}
             <span>{button.label}</span>
             {button.icon && button.extraIcon}
           </button>
-          {button.label === "Categorias" && showCategories && button.dropdown}
+          {button.dropdown && dropdownVisibility[button.label]  && button.dropdown}
         </div>
       ))}
     </div>
@@ -93,3 +161,14 @@ const NavBar = () =>
 
 
 export default NavBar;
+
+
+{/* <button 
+          type="button"  
+          className="flex items-center gap-2 text-sm"
+           onClick={button.label === "Categorias" ? toggleCategories : undefined}
+          >
+            {button.icon}
+            <span>{button.label}</span>
+            {button.icon && button.extraIcon}
+          </button> */}

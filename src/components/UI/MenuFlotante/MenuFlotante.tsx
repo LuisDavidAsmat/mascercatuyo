@@ -18,7 +18,7 @@ function MenuFlotante({ opciones, background, onClose }: MenuFlotanteProps)
 {
     
     return (
-        <div className={` w-2/12 fixed left-1/2 -translate-x-1/2 top-16 flex flex-col flex-start z-50 gap-4 rounded-md shadow-lg p-4 bg-white border`}>
+        <div className={` w-2/12 fixed left-24 top-16 flex flex-col flex-start z-50 gap-4 rounded-md shadow-lg p-4 bg-white border`}>
             <button type='button' className="w-full flex justify-end ">
                 <svg
                     className="h-5 w-5 stroke-black stroke-2 bg-transparent cursor-pointer fill-none"

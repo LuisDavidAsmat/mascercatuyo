@@ -26,7 +26,7 @@ const Testimonials: React.FC = () => {
   ];    
 
   return (
-    <section className='mt-24'>
+    <section className='mt-24' id='testimonios'>
       <section className='flex justify-start items-center gap-4 px-48'>
         <figure className='w-16'>
           <img src="./img/testimonios.png" alt="Testimonios" className='w-full h-full' />
