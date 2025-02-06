@@ -1,4 +1,4 @@
-import { GoogleMap, Libraries, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { useEffect, useRef, useState } from 'react';
 const GOOGLE_API_MAPS_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 const GOOGLE_MAPS_ID = import.meta.env.VITE_GOOGLE_MAPS_ID;
@@ -27,7 +27,7 @@ const libraries: ("marker")[] = ["marker"];
 const Map = ({ location }: MapProps) => 
 {
     const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
-    const mapRef = useRef<google.maps.Map | null>(null);
+   
     const [map, setMap] = useState<google.maps.Map | null>(null);
     
 
@@ -83,24 +83,15 @@ const Map = ({ location }: MapProps) =>
                 try 
                 {
                     // Import the marker library
-                    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
+                    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
 
-                    const pinElement = new PinElement(
-                    {
-                        background: "#FBBC04",
-                        borderColor: "#B29323",
-                        glyphColor: "#000",
-                    });
-                    
                     // Create new marker
                     markerRef.current = new AdvancedMarkerElement(
                     {
                         map,
                         position: location,
                         content: markerContent,
-                        title: "Custom Marker",
-                        // content: pinElement.element,
-                        // title: "Location"
+                        title: "Custom Marker"
                     });
                 } 
                 catch (error) 
@@ -127,7 +118,7 @@ const Map = ({ location }: MapProps) =>
         }; 
     }, []);
     
-    // console.log(location)
+
 
     if (loadError) return <div>Error loading maps</div>;
     if (!isLoaded) return <div>Loading Maps...</div>;

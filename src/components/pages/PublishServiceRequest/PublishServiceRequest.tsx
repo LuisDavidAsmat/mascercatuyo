@@ -20,7 +20,7 @@ const PublishServiceRequest: React.FC = () =>
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const navigate = useNavigate();
 
-  const { location, error } = useGeoLocation();
+  const { location } = useGeoLocation();
 
   const toggleDarkMode = useCallback(() => 
   {

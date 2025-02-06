@@ -22,7 +22,7 @@ const PublishServiceOffer: React.FC = () =>
   const [formData, setFormData] = useState<ProviderOffer | null>(null); 
   const [showEditReviewModal, setShowEditReviewModal] = useState(false);
   const [showFinalOffer, setShowFinalOffer] = useState(false);
-  const { location, error } = useGeoLocation();
+  const { location } = useGeoLocation();
 
   
   const toggleDarkMode = useCallback(() => 

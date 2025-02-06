@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 
-interface CarouselProps {
-  images?: string[];
-
-}
 
 const Carousel: React.FC = () => {
 
@@ -17,16 +13,6 @@ const Carousel: React.FC = () => {
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const goToNextSlide = (event: React.MouseEvent<HTMLButtonElement>,) => { event.preventDefault();
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
-
-  const goToPrevSlide = (event: React.MouseEvent<HTMLButtonElement>,) => { event.preventDefault();
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
     const goToSlide = (event: React.MouseEvent<HTMLButtonElement>,index: number) => 
     {
         event.preventDefault();
@@ -37,7 +23,7 @@ const Carousel: React.FC = () => {
 
   return (
     <div className="relative max-w-lg mx-auto overflow-hidden rounded-lg shadow-lg">
-      {/* Image Slide */}
+
       <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
         {images.map((image, index) => (
           <div key={index} className={`min-w-full h-80 rounded-lg border-2 `}>
@@ -50,7 +36,7 @@ const Carousel: React.FC = () => {
         ))}
       </div>
 
-      {/* Navigation Dots */}
+
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-2 p-2 bg-white rounded-xl">
         {images.map((_, index) => (
           <button

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { categories, statusClasses } from "../PublishServiceOffer/ServicesData";
 import { fetchServiceById, hireServiceRequest } from "../../../services/api.service";
 import ConfirmationModal from "../../UI/ConfirmationModal/ConfirmationModal";
-import useGeoLocation from "../../CustomHooks/UseGeoLocation/useGeoLocation";
+
 
 
 export interface RequestedService 
@@ -35,7 +35,6 @@ const ServiceDetails: React.FC = () =>
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
     const [userLocation, setUserLocation] = useState<Location>({ lat: 0, lng: 0 });
-    //const { location, error } = useGeoLocation();
 
     
     const toggleDarkMode = useCallback(() => 
@@ -283,7 +282,6 @@ const ServiceDetails: React.FC = () =>
                 </section>
 
                 
-
               </section>
             </section>
 

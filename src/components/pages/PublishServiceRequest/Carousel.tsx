@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-interface CarouselProps {
-  images: string[];
-}
 
 const Carousel: React.FC = () => {
 
@@ -16,15 +13,6 @@ const Carousel: React.FC = () => {
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const goToNextSlide = (event: React.MouseEvent<HTMLButtonElement>,) => { event.preventDefault();
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
-
-  const goToPrevSlide = (event: React.MouseEvent<HTMLButtonElement>,) => { event.preventDefault();
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
 
     const goToSlide = (event: React.MouseEvent<HTMLButtonElement>,index: number) => 
     {

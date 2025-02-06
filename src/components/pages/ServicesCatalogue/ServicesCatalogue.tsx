@@ -18,7 +18,7 @@ const ServicesCatalogue: React.FC = () =>
     const [userLon, setUserLon] = useState<number | null>(null);
     const [showNearServices, setShowNearServices] = useState(false); 
 
-    const { location, error  } = useGeoLocation();
+    const { location } = useGeoLocation();
 
     const [darkMode, setDarkMode]=useState(false);  
 
