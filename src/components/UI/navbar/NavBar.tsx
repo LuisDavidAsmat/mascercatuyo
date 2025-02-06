@@ -11,10 +11,7 @@ interface ButtonNav {
   onClick?: () => void;
 }
 
-interface Category {
-  value: string;
-  label: string;
-}
+
 
 
 
@@ -33,12 +30,7 @@ const NavBar = () =>
       [label]: !prevState[label],
     }));
   };
-  
-  const [showCategories, setShowCategories] = useState(false);
 
-  const toggleCategories = () => {
-    setShowCategories(!showCategories);
-  };
 
   const buttons: ButtonNav[] = [
     {
