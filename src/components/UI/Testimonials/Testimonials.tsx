@@ -1,4 +1,5 @@
 import React from 'react';
+import './Testimonials.css'
 
 const Testimonials: React.FC = () => {
   // Fictional reviews in Spanish
@@ -26,7 +27,7 @@ const Testimonials: React.FC = () => {
   ];    
 
   return (
-    <section className='mt-24' id='testimonios'>
+    <section className='mt-24 font-monserrat-testimonials' id='testimonios'>
       <section className='flex justify-start items-center gap-4 px-48'>
         <figure className='w-16'>
           <img src="./img/testimonios.png" alt="Testimonios" className='w-full h-full' />
@@ -53,7 +54,7 @@ const Testimonials: React.FC = () => {
               </div>
             </section>
             
-            <p key={index} className={`h-52 mt-4 p-4  max-w-[12rem] text-ellipsis text-black overflow-hidden rounded-xl bg-gradient-to-b 
+            <p key={index} className={`h-52 mt-4 p-4  max-w-[12rem] text-ellipsis text-md text-black overflow-hidden rounded-xl bg-gradient-to-b 
             ${index % 2 === 0 ? 'from-white via-orange-300 to-orange-600': 'from-orange-600 via-orange-300 to-white'}`}>
                 {review.comment}
             </p>

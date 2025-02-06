@@ -12,9 +12,6 @@ interface ButtonNav {
 }
 
 
-
-
-
 const NavBar = () =>  
 {
 
@@ -66,7 +63,7 @@ const NavBar = () =>
         
       ),
       dropdown: (
-        <div className="absolute w-[30rem] top-12 left-0 bg-white text-black p-4 rounded shadow-lg">
+        <div className="absolute w-[30rem] top-12 left-0 bg-white text-black p-4 rounded shadow-lg bg-gradient-to-b from-white via-orange-300 to-orange-600">
           <p>En Más Cerca Tuyo, creemos en el poder de la comunidad y la cercanía. Nacimos con la misión de conectar a quienes necesitan un servicio para su hogar con los trabajadores locales formales e informales que pueden ofrecerlo, de manera rápida, confiable y dentro de la misma localidad.
 Nuestra plataforma surge como respuesta a la dificultad de encontrar de manera rápida y accesible a profesionales confiables en el sector de servicios esenciales para el hogar y la necesidad de dar mayor visibilidad a trabajadores independientes. Más que una webapp, somos un espacio digital de encuentro, donde cada conexión impulsa la economía local y fortalece los lazos comunitarios.
 Si buscas un servicio o quieres ofrecer tu talento, estás en el lugar indicado. ¡Conectemos juntos! 🚀</p>
@@ -120,7 +117,7 @@ Si buscas un servicio o quieres ofrecer tu talento, estás en el lugar indicado.
   ];
 
   return (
-    <div  className="py-4 flex gap-8 text-white">
+    <div  className="py-4 flex gap-8 text-white font-monserrat-nav">
       {buttons.map((button, index) => 
       (
         <div key={index} className="relative" >
