@@ -3,7 +3,7 @@ import Map from "../../CustomHooks/Map/Map";
 import useGeoLocation from "../../CustomHooks/UseGeoLocation/useGeoLocation";
 import Profile from "../HeaderUserSection/HeaderUserSection";
 
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function HomeHeader() {
     const [userLocation, setUserLocation] = useState('');
