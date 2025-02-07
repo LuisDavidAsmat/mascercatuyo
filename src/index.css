@@ -9,66 +9,9 @@
     font-family: monserrat;
 }
 
-
 #root {
-    /* max-width: 1280px; */
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0;
     text-align: center
-}
-
-.card {
-    padding: 2em;
-}
-
-
-
-#submit {
-    background-color: beige;
-    color: black;
-    border: none;
-    padding: 0.6rem 1.6rem;
-    /* 16px 32px */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 2rem;
-    /* 20px */
-    margin: 0.4rem 0.2rem;
-    /* 4px 2px */
-    cursor: pointer;
-    border-radius: 0.5rem;
-}
-
-#create {
-    background-color: beige;
-    color: black;
-    border: none;
-    padding: 0.6rem 1.6rem;
-    /* 16px 32px */
-    text-align: center;
-    justify-content: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    /* 20px */
-    margin: 0.4rem 0.2rem;
-}
-
-#createAccount {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    border: none;
-    padding: 0.6rem 1.6rem;
-    /* 16px 32px */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 2rem;
-    /* 20px */
-    margin: 0.4rem 0.2rem;
-}
+} 

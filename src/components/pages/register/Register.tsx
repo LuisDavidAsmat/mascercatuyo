@@ -49,7 +49,7 @@ function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="bg-white text-black  flex justify-center items-center dark:text-white">
       <form onSubmit={handleSubmit(onValid)} className="form-control w-full max-w-md p-4 gap-2">
         <div className="flex justify-center items-center mb-4">
           <Link to={"/"}>

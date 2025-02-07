@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import Carousel from './Carousel';
+
 import { useForm } from 'react-hook-form';
 import { createServiceRequest } from '../../../services/api.service';
 import SelectField from '../../UI/SelectField/SelectField';
@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router';
 import UserProfileInfo from '../../UI/UserProfileInfo/UserProfileInfo';
 import LocationFormSection from '../../UI/LocationFormSection/LocationFormSection';
 import useGeoLocation from '../../CustomHooks/UseGeoLocation/useGeoLocation';
+import Carousel from '../../UI/Carousel/Carousel';
 
 
 const PublishServiceRequest: React.FC = () => 
@@ -132,7 +133,7 @@ const PublishServiceRequest: React.FC = () =>
                 <Carousel/>
               </section>
               <section  className='basis-1/4'>
-                <UserProfileInfo userName={'Pepito Perez'} rating={4} showContactButtons={false}/>
+                <UserProfileInfo userName={'Pedro Perez'} rating={4} showContactButtons={false}/>
               </section>
             </section>
 

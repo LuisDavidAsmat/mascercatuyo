@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import Carousel from './Carousel';
+
 import { Controller, useForm } from 'react-hook-form';
 import { createServiceOffer } from '../../../services/api.service';
 import SelectField from '../../UI/SelectField/SelectField';
@@ -10,6 +10,7 @@ import UserProfileInfo from '../../UI/UserProfileInfo/UserProfileInfo';
 import LocationFormSection from '../../UI/LocationFormSection/LocationFormSection';
 import { Link } from 'react-router';
 import useGeoLocation from '../../CustomHooks/UseGeoLocation/useGeoLocation';
+import Carousel from '../../UI/Carousel/Carousel';
 
 
 
@@ -119,7 +120,7 @@ const PublishServiceOffer: React.FC = () =>
           <section className='sm:flex gap-8 sm:px-48 mt-4 text-sm '>
             <section className='basis-2/4 flex flex-col justify-between space-y-4'>
               <Carousel/>
-              <UserProfileInfo userName={'Pepito Perez'} rating={4} showContactButtons={false}/>
+              <UserProfileInfo userName={'Pedro Perez'} rating={4} showContactButtons={false}/>
               <SelectField 
                 name='estado'
                 showLabel={true}

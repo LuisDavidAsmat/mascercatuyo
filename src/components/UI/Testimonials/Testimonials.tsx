@@ -28,17 +28,17 @@ const Testimonials: React.FC = () => {
 
   return (
     <section className='mt-24 font-monserrat-testimonials' id='testimonios'>
-      <section className='flex justify-start items-center gap-4 px-48'>
+      <section className='flex justify-start items-center gap-4 px-4 sm:px-48'>
         <figure className='w-16'>
           <img src="./img/testimonios.png" alt="Testimonios" className='w-full h-full' />
         </figure>
         <h2 className='text-xl font-bold text-black'>Testimonios de la comunidad</h2>
       </section>
 
-      <ul className=' pt-4 pb-32 px-48 flex flex-nowrap gap-6 overflow-hidden'>
+      <ul className=' pt-4 pb-32 px-6 sm:px-48 flex flex-nowrap gap-10 sm:gap-6 overflow-hidden'>
         {reviews.map((review, index) => (
           <li key={index} className='text-center'>
-            <section className='p-2 flex gap-2 bg-white rounded-xs'>
+            <section className='p-2 flex sm:gap-2 bg-white rounded-xs'>
               <svg className='w-10 h-10 fill-current text-transparent stroke-black stroke-1 dark:stroke-white' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="9" r="3" />
                 <circle cx="12" cy="12" r="10" />

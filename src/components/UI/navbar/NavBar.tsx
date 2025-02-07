@@ -43,8 +43,8 @@ const NavBar = () =>
         </svg>
       ),
       dropdown: (
-        <div className="absolute top-12 left-0 gradient-background-navbar text-black p-4 rounded shadow-lg">
-          <ul className="w-[40rem] flex gap-4 flex-wrap text-xs">
+        <div className="absolute top-12 sm:left-0 left-[-7rem] gradient-background-navbar text-black p-4 rounded shadow-lg">
+          <ul className="w-72 sm:w-[40rem] flex gap-4 flex-wrap text-xs">
             {categories.map((category, index) => (
               <li className="py-2 bg-orange-100 p-2 rounded-lg border-2 border-white" key={index} >
                 <Link to={`/servicios/${category.value}`}>{category.label}</Link>
@@ -63,7 +63,7 @@ const NavBar = () =>
         
       ),
       dropdown: (
-        <div className="absolute w-[30rem] top-12 left-0 bg-white text-black p-4 rounded shadow-lg bg-gradient-to-b from-white via-orange-300 to-orange-600">
+        <div className="absolute w-80 sm:w-[30rem] top-12 z-50 sm:left-0 left-[-7rem] bg-white text-black p-4 rounded shadow-lg bg-gradient-to-b from-white via-orange-300 to-orange-600">
           <p>En Más Cerca Tuyo, creemos en el poder de la comunidad y la cercanía. Nacimos con la misión de conectar a quienes necesitan un servicio para su hogar con los trabajadores locales formales e informales que pueden ofrecerlo, de manera rápida, confiable y dentro de la misma localidad.
 Nuestra plataforma surge como respuesta a la dificultad de encontrar de manera rápida y accesible a profesionales confiables en el sector de servicios esenciales para el hogar y la necesidad de dar mayor visibilidad a trabajadores independientes. Más que una webapp, somos un espacio digital de encuentro, donde cada conexión impulsa la economía local y fortalece los lazos comunitarios.
 Si buscas un servicio o quieres ofrecer tu talento, estás en el lugar indicado. ¡Conectemos juntos! 🚀</p>
@@ -117,7 +117,7 @@ Si buscas un servicio o quieres ofrecer tu talento, estás en el lugar indicado.
   ];
 
   return (
-    <div  className="py-4 flex gap-8 text-white font-monserrat-nav">
+    <div  className="py-4 flex flex-col items-center sm:items-start sm:flex-row gap-8 text-white font-monserrat-nav">
       {buttons.map((button, index) => 
       (
         <div key={index} className="relative" >

@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import LocationFormSection from "../../UI/LocationFormSection/LocationFormSection";
 import UserProfileInfo from "../../UI/UserProfileInfo/UserProfileInfo";
-import Carousel from "../PublishServiceOffer/Carousel";
+
 import { useNavigate, useParams } from "react-router";
 import { categories, statusClasses } from "../PublishServiceOffer/ServicesData";
 import { fetchServiceById, hireServiceRequest } from "../../../services/api.service";
 import ConfirmationModal from "../../UI/ConfirmationModal/ConfirmationModal";
+import Carousel from "../../UI/Carousel/Carousel";
 
 
 
