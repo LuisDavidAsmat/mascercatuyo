@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../../index.css';
+import { Link } from 'react-router';
 
 interface MenuOption {
     texto: string;
@@ -34,10 +35,10 @@ function MenuFlotante({ opciones, background, onClose }: MenuFlotanteProps)
             <hr className='border w-full'/>
 
             {opciones.map((opcion, index) => (
-                <a key={index} href={opcion.liga} className={`py-2 w-full rounded-md text-sm ${background}`}  >
+                <Link key={index} to={opcion.liga} className={`py-2 w-full rounded-md text-sm ${background}`}  >
                     {opcion.icono && <span className="">{opcion.icono}</span>}
                     {opcion.texto}
-                </a>
+                </Link>
             ))}
         </div>
     )
