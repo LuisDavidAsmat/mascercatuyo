@@ -7,6 +7,7 @@ const GOOGLE_MAPS_ID = import.meta.env.VITE_GOOGLE_MAPS_ID;
 interface MapProps 
 {
     location: { lat: number; lng: number } | null;
+    zoom?: number; 
 }
 
 const mapContainerStyle = {
@@ -24,7 +25,7 @@ const center =
 const libraries: ("marker")[] = ["marker"];
 
 
-const Map = ({ location }: MapProps) => 
+const Map = ({ location, zoom = 10 }: MapProps) => 
 {
     const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
    
@@ -127,7 +128,7 @@ const Map = ({ location }: MapProps) =>
     return (
         <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={10}
+            zoom={zoom}
             center={location || center}
             options={mapOptions}
             onLoad={(mapInstance) => 
