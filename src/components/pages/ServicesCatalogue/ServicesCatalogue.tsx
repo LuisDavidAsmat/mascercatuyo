@@ -167,7 +167,7 @@ const ServicesCatalogue: React.FC = () =>
                         </div>
                     </li>
                 ))) : (
-                    <p>No services yet for this category.</p>
+                    <p className="w-96 mx-auto text-center text-black">Aún no hay servicios ofrecidos para esta categoría.</p>
                 )}
                 {services.length > visibleCount && (
                     <div className="flex justify-center mt-4">

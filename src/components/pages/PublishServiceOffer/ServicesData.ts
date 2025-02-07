@@ -102,7 +102,7 @@ export const statusClasses =
     { value: 'plomeria', label: 'Plomería'},
     { value: 'mecanica', label: 'Mecánica'},
     { value: 'reparaciones', label: 'Reparaciones'},
-    { value: 'carpinteria', label: 'carpintería' },
+    { value: 'carpinteria', label: 'Carpintería' },
     { value: 'reparacionesDeElectrodomesticos', label: 'Reparaciones de electrodomésticos' },
     { value: 'otro', label: 'Otro' }
 ];

@@ -31,7 +31,7 @@ const HorizontalSlider: React.FC = () =>
   };
 
   return (
-    <div className="slider-container" style={{ width: containerWidth, height: containerHeight }}>
+    <div className={`slider-container w-80 sm:w-[30rem] lg:w-[62.5rem]`} style={{  height: containerHeight }}>
       <div
         className="image-container"
         style={{
