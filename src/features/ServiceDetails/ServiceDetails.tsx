@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
-import LocationFormSection from "../../UI/LocationFormSection/LocationFormSection";
-import UserProfileInfo from "../../UI/UserProfileInfo/UserProfileInfo";
+import React, { useCallback, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router';
+import { categories, statusClasses } from '../../config/constants';
+import { fetchServiceById, hireServiceRequest } from '../../services/api.service';
+import Carousel from '../../components/Carousel';
+import UserProfileInfo from '../../components/UserProfileInfo';
+import LocationFormSection from '../../components/LocationFormSection';
+import ConfirmationModal from '../../components/ConfirmationModal';
 
-import { useNavigate, useParams } from "react-router";
-import { categories, statusClasses } from "../PublishServiceOffer/ServicesData";
-import { fetchServiceById, hireServiceRequest } from "../../../services/api.service";
-import ConfirmationModal from "../../UI/ConfirmationModal/ConfirmationModal";
-import Carousel from "../../UI/Carousel/Carousel";
-
+type Props = {}
 
 
 export interface RequestedService 
@@ -24,8 +24,7 @@ interface Location {
   lng: number;
 }
 
-const ServiceDetails: React.FC = () => 
-{
+const ServiceDetails = (props: Props) => {
     const { category, servicioId } = useParams();
     const [categoryExists, setCategoryExists] = useState(false);
     const navigate = useNavigate();
@@ -338,4 +337,4 @@ const ServiceDetails: React.FC = () =>
     )
 }
 
-export default ServiceDetails;
+export default ServiceDetails

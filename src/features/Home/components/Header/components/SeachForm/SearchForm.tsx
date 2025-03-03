@@ -9,8 +9,8 @@ const SearchForm = (props: Props) => {
         <div className="relative space-x-1">
             <div className="absolute inset-y-0 flex items-center ps-3">
               <button className='cursor-pointer'>
-                <svg className="mt-0 w-4 h-4 text-black dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                <svg className="mt-0 w-4 h-4 text-black stroke-2 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>L
                 </svg>
               </button>
             </div>

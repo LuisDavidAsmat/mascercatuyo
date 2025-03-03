@@ -73,4 +73,18 @@ export const tiempos: EstimatedTime[] = [
     { value: '3', label: '3 Horas' }
   ];
 
+  export interface Deadlines 
+{
+    value: string;
+    label: string;
+}
+
+
+
+    export const plazos: Deadlines[] = [
+      { value: 'urgente', label: 'Urgente' },
+      { value: '3_dias_de_espera', label: '3 días de espera' },
+      { value: '1_semana_de_espera', label: '1 semana de espera'},
+      { value: 'sin_plazo_de_espera', label: 'Sin plazo de espera'}
   
+    ];

@@ -6,10 +6,11 @@ import { ClientRequestService } from './types/RequestServiceTypes';
 import Carousel from '../../components/Carousel';
 import UserProfileInfo from '../../components/UserProfileInfo';
 import SelectField from '../../components/SelectField';
-import { categories, plazos } from '../../components/pages/PublishServiceOffer/ServicesData';
+
 import TextAreaField from '../../components/TextAreaField ';
 import LocationFormSection from '../../components/LocationFormSection';
-import useGeoLocation from '../../components/CustomHooks/UseGeoLocation/useGeoLocation';
+import { categories, plazos } from '../../config/constants';
+import useGeoLocation from '../../hooks/UseGeoLocation/useGeoLocation';
 
 
 type Props = {}

@@ -2,7 +2,7 @@ import React from 'react'
 import './Main.css'
 import NavBar from './components/NavBar'
 import { Link } from 'react-router'
-import HorizontalSlider from '../../../../components/UI/HorizontalSlider/HorizontalSlider'
+import HorizontalSlider from './components/HorizontalSlider/HorizontalSlider'
 import Testimonials from './components/Testimonials/Testimonials';
 import ImgHolder from '../../../../components/ImgHolder'
 import TopProvider from './components/TopProvider/TopProvider'

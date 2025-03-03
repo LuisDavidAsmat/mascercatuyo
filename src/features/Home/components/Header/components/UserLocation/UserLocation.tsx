@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Map from "../../../../../../components/CustomHooks/Map/Map";
 import { useState } from 'react';
-import useGeoLocation from "../../../../../../components/CustomHooks/UseGeoLocation/useGeoLocation";
+import Map from '../../../../../../hooks/Map/Map';
+import useGeoLocation from '../../../../../../hooks/UseGeoLocation/useGeoLocation';
 
 type Props = {}
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import Map from "../components/CustomHooks/Map/Map";
+
 import InfoIcon from "./InfoIcon";
+import Map from "../hooks/Map/Map";
+
 
 
 interface LocationFormSectionProps

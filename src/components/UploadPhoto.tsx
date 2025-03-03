@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { uploadPhoto } from '../../../services/api.service';
+import { uploadPhoto } from '../services/api.service';
+
 
 interface UploadPhotoProps {
   onImageUpload: (url: string) => void;

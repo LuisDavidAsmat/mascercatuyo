@@ -1,10 +1,13 @@
+import React from 'react'
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import { categories } from "../PublishServiceOffer/ServicesData";
-import { fetchAllServicesByCategory, fetchAllServicesByCategoryAndProximity } from "../../../services/api.service";
-import useGeoLocation from "../../CustomHooks/UseGeoLocation/useGeoLocation";
+import { categories } from '../../config/constants';
+import { fetchAllServicesByCategory, fetchAllServicesByCategoryAndProximity } from '../../services/api.service';
+import useGeoLocation from '../../hooks/UseGeoLocation/useGeoLocation';
 
-const ServicesCatalogue: React.FC = () => 
+type Props = {}
+
+const ServicesCatalogue = (props: Props) => 
 {
     const { category } = useParams();
     const navigate = useNavigate();
@@ -190,6 +193,7 @@ const ServicesCatalogue: React.FC = () =>
         </main>
         </div>
     )
+
 }
 
-export default ServicesCatalogue;
+export default ServicesCatalogue

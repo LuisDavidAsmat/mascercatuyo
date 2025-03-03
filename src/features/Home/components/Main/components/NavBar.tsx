@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { categories } from '../../../../../components/pages/PublishServiceOffer/ServicesData';
+
 import { Link } from 'react-router';
+import { categories } from '../../../../../config/constants';
 
 type Props = {}
 

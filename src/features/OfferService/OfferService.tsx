@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import useGeoLocation from '../../components/CustomHooks/UseGeoLocation/useGeoLocation';
 import { ProviderOffer } from './types/OfferServiceTypes';
 import { Controller, useForm } from 'react-hook-form';
 import { createServiceOffer } from '../../services/api.service';
@@ -11,6 +10,7 @@ import UserProfileInfo from '../../components/UserProfileInfo';
 import TextAreaField from '../../components/TextAreaField ';
 import LocationFormSection from '../../components/LocationFormSection';
 import ConfirmationModal from '../../components/ConfirmationModal';
+import useGeoLocation from '../../hooks/UseGeoLocation/useGeoLocation';
 
 type Props = {}
 
