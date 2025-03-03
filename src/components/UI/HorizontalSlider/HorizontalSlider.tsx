@@ -31,28 +31,30 @@ const HorizontalSlider: React.FC = () =>
   };
 
   return (
-    <div className={`slider-container w-80 sm:w-[30rem] lg:w-[62.5rem]`} style={{  height: containerHeight }}>
-      <div
-        className="image-container"
-        style={{
-          width: imageWidth,
-          height: imageHeight,
-          transform: `translateX(-${scrollPosition}px)`,
-        }}
-      >
-        <img
-          src="./img/horizontal-slide-categories.png" // Replace with your image path
-          alt="Wide Image"
-          style={{ width: imageWidth, height: imageHeight }}
-        />
+     <section className='mt-14 px-24 py-12'>
+      <div className={`slider-container w-80 sm:w-[30rem] lg:w-[62.5rem]`} style={{  height: containerHeight }}>
+        <div
+          className="image-container"
+          style={{
+            width: imageWidth,
+            height: imageHeight,
+            transform: `translateX(-${scrollPosition}px)`,
+          }}
+        >
+          <img
+            src="./img/horizontal-slide-categories.png" // Replace with your image path
+            alt="Wide Image"
+            style={{ width: imageWidth, height: imageHeight }}
+          />
+        </div>
+        <button className="scroll-button left" onClick={handleScrollLeft}>
+          &lt;
+        </button>
+        <button className="scroll-button right" onClick={handleScrollRight}>
+          &gt;
+        </button>
       </div>
-      <button className="scroll-button left" onClick={handleScrollLeft}>
-        &lt;
-      </button>
-      <button className="scroll-button right" onClick={handleScrollRight}>
-        &gt;
-      </button>
-    </div>
+    </section>
   );
 };
 

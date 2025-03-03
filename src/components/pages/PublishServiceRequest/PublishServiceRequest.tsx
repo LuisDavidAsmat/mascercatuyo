@@ -114,7 +114,7 @@ const PublishServiceRequest: React.FC = () =>
         </section>
         <p className='px-10 text-lg font-medium sm:px-0 sm:text-sm sm:tracking-wide font-semibold'>Usuario necesita el siguiente servicio en su hogar</p>
       </header>             
-        <form onSubmit={handleSubmit(onSubmit)} className='mt-6 gap-8 '>
+        <form onSubmit={handleSubmit(onSubmit)} className='mt-6 gap-8 py-8'>
           <SelectField 
             name='categoria'
             showLabel={false}
@@ -175,12 +175,7 @@ const PublishServiceRequest: React.FC = () =>
             </svg>
           </button>
 
-          <a href="" className='mt-8 mb-6 p-2 inline-flex justify-center items-center gap-1 uppercase text-center 
-          bg-stone-300 rounded-lg border border-emerald-950 text-sm sm:text-xs
-          '>
-            <svg className='h-4 w-4 fill-current stroke-black text-transparent' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m3 5.5 2-2m16 2-2-2m-7 5v4l2 2m6-2a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}/></svg>  
-            <span>continuar después</span>
-          </a>
+          
         </form>
         
 

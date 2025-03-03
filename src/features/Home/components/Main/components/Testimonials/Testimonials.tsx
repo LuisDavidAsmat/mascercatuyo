@@ -1,5 +1,6 @@
-import React from 'react';
-import './Testimonials.css'
+import React from 'react'
+
+type Props = {}
 
 const Testimonials: React.FC = () => {
   // Fictional reviews in Spanish
