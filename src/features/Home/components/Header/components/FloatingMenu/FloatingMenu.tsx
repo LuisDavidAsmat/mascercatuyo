@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router';
 
-type Props = {}
 
 interface MenuOption {
     text: string;
-    link: string;
+    link?: string;
     icon?: React.ReactNode;
+    onClick?: () => void;
 }
 
 interface FloatinMenuProps 
@@ -19,7 +19,10 @@ interface FloatinMenuProps
 const FloatingMenu: React.FC<FloatinMenuProps> = ({ options, background = "bg-white", onClose }) => {
 
     return (
-        <div className={`absolute top-10 w-44 flex flex-col flex-start gap-4 rounded-md shadow-lg p-4 bg-white border dark:border-neutral-500 dark:bg-neutral-600`}>
+        <div 
+        className={`absolute top-10 w-56 flex flex-col flex-start gap-4 rounded-md shadow-lg p-4 bg-white border 
+        
+        dark:border-neutral-500 dark:bg-neutral-600`}>
             <button type='button' className="w-full flex justify-end ">
                 <svg
                     className="h-5 w-5 stroke-black stroke-2 bg-transparent cursor-pointer fill-none dark:stroke-neutral-400 dark:hover:stroke-neutral-300"
@@ -35,10 +38,31 @@ const FloatingMenu: React.FC<FloatinMenuProps> = ({ options, background = "bg-wh
             <hr className='border w-full'/>
 
             {options.map((option, index) => (
-                <Link key={index} to={option.link} className={`py-2 w-full rounded-md text-sm ${background} dark:bg-stone-500`}  >
-                    {option.icon && <span className="">{option.icon}</span>}
-                    {option.text}
-                </Link>
+                option.link? (
+                    <Link key={index} to={option.link} 
+                    className=
+                    {`flex items-center gap-3 p-2 w-full rounded-md  ${background} 
+                    hover:bg-stone-300 transition-all duration-300 
+                    focus:shadow-[inset_-1px_1px_5px_0px_rgba(7,7,7,0.75)] focus:bg-[#CDCFCF] focus:text-gray-500            
+                    dark:bg-stone-500 dark:hover:bg-stone-400 dark:focus:bg-stone-400
+                    `} 
+                    onClick={option.onClick}
+                    >
+                        
+                        {option.icon && <span className="">{option.icon}</span>}
+                        {option.text}
+                    </Link>
+                ) : (
+                    <button
+                        key={index}
+                        className={``}
+                        onClick={option.onClick}
+                    >
+                        {option.icon && <span>{option.icon}</span>}
+                        {option.text}
+                    </button>
+                )
+                
             ))}
         </div>
     )

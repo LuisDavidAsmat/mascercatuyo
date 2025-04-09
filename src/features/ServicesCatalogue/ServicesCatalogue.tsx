@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { categories } from '../../config/constants';
 import { fetchAllServicesByCategory, fetchAllServicesByCategoryAndProximity } from '../../services/api.service';
-import useGeoLocation from '../../hooks/UseGeoLocation/useGeoLocation';
+import { useCoordinatesStore } from '../../stores/useCoordinatesStore';
 
 type Props = {}
 
@@ -16,22 +16,11 @@ const ServicesCatalogue = (props: Props) =>
     const [isLoading, setIsLoading] = useState(false);
     const [isCheckingCategory, setIsCheckingCategory] = useState(true);
     const [visibleCount, setVisibleCount] = useState(8);
-
-    const [userLat, setUserLat] = useState<number | null>(null);
-    const [userLon, setUserLon] = useState<number | null>(null);
     const [showNearServices, setShowNearServices] = useState(false); 
 
-    const { location } = useGeoLocation();
-
-    const [darkMode, setDarkMode]=useState(false);  
-
+    const { userLat, userLng } = useCoordinatesStore();
 
     const categoryLabel = categories.find(cat => cat.value === category)?.label || ''; 
-
-    const toggleDarkMode = useCallback(() => 
-    {
-        setDarkMode((prevMode) => !prevMode);
-    }, []);
 
     const handleShowMore = () => 
     {
@@ -57,13 +46,13 @@ const ServicesCatalogue = (props: Props) =>
         checkCategory();
     }, [category, navigate]);
 
-    useEffect(() => 
-    {
-        if (location) {
-            setUserLat(location.lat);
-            setUserLon(location.lng);
-        }
-    }, [location]);
+    // useEffect(() => 
+    // {
+    //     if (location) {
+    //         setUserLat(location.lat);
+    //         setUserLon(location.lng);
+    //     }
+    // }, [location]);
    
 
     useEffect(() => {
@@ -78,10 +67,11 @@ const ServicesCatalogue = (props: Props) =>
             try 
             {
                 let fetchedservices = [];
-
-                if(showNearServices && userLat !== null && userLon !== null)
-                {   
-                    fetchedservices = await fetchAllServicesByCategoryAndProximity(category, userLat, userLon, 100);   
+                
+            
+                if(showNearServices && userLat !== null && userLng !== null)
+                    {   
+                    fetchedservices = await fetchAllServicesByCategoryAndProximity(category, userLat, userLng, 100);   
                 }
                 else 
                 {                   
@@ -104,7 +94,7 @@ const ServicesCatalogue = (props: Props) =>
         { 
             fetchServices();
         }
-    }, [category, categoryExists, showNearServices, userLat, userLon]); 
+    }, [category, categoryExists, showNearServices, userLat, userLng]); 
     
 
     if (isCheckingCategory)
@@ -118,7 +108,7 @@ const ServicesCatalogue = (props: Props) =>
     }
 
     return (
-        <div className={`${darkMode && "dark"} bg-white dark:bg-neutral-900 `} data-theme={`${darkMode? "dark": "light"}`}>
+        
         <main className="px-4 sm:px-48 bg-white dark:bg-neutral-900">
             <h1 className="uppercase pt-8 font-bold text-2xl text-black dark:text-white">{categoryLabel}</h1>            
             <h2 className="w-5/6 inline-flex bg-red-500 border-t bg-gradient-to-b from-gray-50 to-gray-50 py-2 px-2 text-left text-xl text-black">{services.length} resultados</h2>
@@ -184,14 +174,8 @@ const ServicesCatalogue = (props: Props) =>
                 )}
                
             </ul>
-
-            <button onClick={toggleDarkMode}
-            className='absolute w-16 h-16 top-16 right-16 bg-neutral-900 rounded-full text-white 
-            dark:bg-white dark:text-black font-bold'>
-                {darkMode? "Light": "Dark"}
-            </button>
         </main>
-        </div>
+
     )
 
 }

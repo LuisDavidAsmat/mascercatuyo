@@ -6,8 +6,9 @@ import { SelectedFieldProps } from '../types/fieldTypes';
 const SelectField: React.FC<SelectedFieldProps> = ({ name, control, defaultValue, rules, options, label, firstOption, error, showLabel }) => 
 {  
   return (
-    <section>
-        {showLabel && <section className='flex items-center gap-2'>
+    <>
+        {showLabel && 
+        <section className='flex items-center gap-2'>
           <label htmlFor={name} className='text-lg sm:text-md'>{label}</label>
           <InfoIcon />
         </section>}
@@ -20,7 +21,7 @@ const SelectField: React.FC<SelectedFieldProps> = ({ name, control, defaultValue
             <select 
                 id={name}
                 { ...field }
-                className="mt-2 select select-bordered select-md sm:select-sm w-full overflow-hidden sm:max-w-md text-lg sm:text-xs" 
+                className="mt-2 select select-bordered select-md sm:select-sm w-full bg-white dark:bg-neutral-700 overflow-hidden sm:max-w-md text-lg sm:text-xs" 
             >
               <option disabled value="" className='w-16 text-xs sm:w-auto sm:text-base'>{firstOption}</option>
               {options.map((option) => (
@@ -33,7 +34,7 @@ const SelectField: React.FC<SelectedFieldProps> = ({ name, control, defaultValue
         />
         
         {error && <p className="text-red-500 font-semibold">{error.message?.toString() || 'Error'}</p>}
-    </section>
+  </>
 )};
 
 export default SelectField;

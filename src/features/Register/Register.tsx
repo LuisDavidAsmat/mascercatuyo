@@ -1,48 +1,71 @@
-import React from 'react'
 import Input from '../../components/Input';
-import { DevTool } from '@hookform/devtools';
 import UploadPhoto from '../../components/UploadPhoto';
 import { Link } from 'react-router';
 import { IoIosArrowBack } from 'react-icons/io';
-import { RegisterFormData } from '../../types/register';
 import { useForm } from 'react-hook-form';
 import { registerUser } from '../../services/api.service';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { RegisterSchema } from './types/RegisterSchema';
+import { RegisterFormData } from './types/RegisterFormData';
 
-type Props = {}
 
-const Register = (props: Props) => {
-    const { register, handleSubmit, control, setValue } = useForm<RegisterFormData>();
+const Register = () => 
+{
+  const { 
+    register, 
+    handleSubmit, 
+    setValue,
+    formState: { errors }
+  } = useForm<RegisterFormData>({
+    resolver: yupResolver(RegisterSchema),
+    defaultValues: 
+    {
+      activeRole: 'ROLE_CLIENT'
+    }
+  });
 
-    const onValid = async (data: RegisterFormData) => {
-      try {
-        console.log('Datos originales del formulario:', data);
+  const onSubmit = async (data: RegisterFormData) => 
+  {
+    try 
+    {
+       const fechaISO = new Date(data.birthDate).toISOString();
+      console.log(
+        data.name,
+        data.surname,
+         data.username,
+         data.email,
+        data.password,
+        fechaISO,
+        data.activeRole
+
+      );
+
+      const response = await registerUser(
+      {
+        name: data.name,
+        surname: data.surname,
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        passwordConfirmation: data.passwordConfirmation,
+        birthDate: fechaISO,
+        activeRole: data.activeRole
+      })
+
+      console.log('Registro exitoso:', response);
+    } catch (error) {
+      console.error('Error en el registro:', error);
+    }
+  };
   
-        const fechaISO = new Date(data.birthdate).toISOString();
-  
-        const formattedData = {
-          nombreApellido: data.name,
-          domicilio: data.city,
-          alias: data.nickname,
-          correo: data.email,
-          contraseña: data.password,
-          fechaNacimiento: fechaISO,
-          imagen: data.image_url || '',
-        };
-  
-        const response = await registerUser(formattedData);
-        console.log('Registro exitoso:', response);
-      } catch (error) {
-        console.error('Error en el registro:', error);
-      }
-    };
-  
-    const handleImageUpload = (imageUrl: string) => {
-      setValue('image_url', imageUrl);
-    };
+    // const handleImageUpload = (imageUrl: string) => {
+    //   setValue('image_url', imageUrl);
+    // };
   
     return (
       <div className="bg-white text-black  flex justify-center items-center dark:text-white">
-        <form onSubmit={handleSubmit(onValid)} className="form-control w-full max-w-md p-4 gap-2">
+        
+        <form onSubmit={handleSubmit(onSubmit)} className="form-control w-full max-w-md p-4 gap-2">
           <div className="flex justify-center items-center mb-4">
             <Link to={"/"}>
               <IoIosArrowBack className="font-semibold text-4xl" />
@@ -52,63 +75,84 @@ const Register = (props: Props) => {
             <h1 className="text-center text-4xl font-semibold mb-4 flex-1">Crear Cuenta</h1>
           </div>
   
-          <UploadPhoto onImageUpload={handleImageUpload} />
+          {/* <UploadPhoto onImageUpload={handleImageUpload} /> */}
   
           <Input
+            label="Nombre"
+            placeholder="Ingrese su nombre"
             type="text"
-            placeholder="Nombre y apellidos"
-            label="Nombre Completo"
-            {...register('name', { required: true })}
+            {...register('name')}
+            error={errors.name?.message}
           />
+
           <Input
+            label="Apellido" 
+            placeholder="Ingrese su apellido"
             type="text"
-            placeholder="Como suelen llamarte"
-            label="Alias"
-            {...register('nickname', { required: true })}
+            {...register('surname')}
+            error={errors.surname?.message}
           />
+
           <Input
-            type="email"
-            placeholder="Correo electronico"
+            label="Nombre de usuario"
+            placeholder="Cree un nombre de usuario"
+            type="text"
+            {...register('username')}
+            error={errors.username?.message}
+          />
+
+          <Input
             label="Email"
-            {...register('email', { required: true })}
+            placeholder="ejemplo@correo.com" 
+            type="email"
+            {...register('email')}
+            error={errors.email?.message}
           />
+
           <Input
+            label="Contraseña"
+            placeholder="Mínimo 6 caracteres con números"
             type="password"
-            placeholder="Debe tener al menos 4 letras y 2 numeros"
-            label="Crear contraseña"
-            {...register('password', {
-              required: true,
-              minLength: 6,
-              pattern: /^(?=.*\d{2,})(?=.*[a-zA-Z]{4,}).*$/,
-            })}
+            {...register('password')}
+            error={errors.password?.message}
           />
+
           <Input
+            label="Confirmar contraseña" 
+            placeholder="Repita su contraseña"
             type="password"
-            placeholder="Debe tener al menos 4 letras y 2 numeros"
-            label="Repite tu nueva contraseña"
-            {...register('rePassword', {
-              required: true,
-              minLength: 6,
-              pattern: /^(?=.*\d{2,})(?=.*[a-zA-Z]{4,}).*$/,
-            })}
+            {...register('passwordConfirmation')}
+            error={errors.passwordConfirmation?.message}
           />
+
           <Input
-            type="text"
-            placeholder="Introduce tu ciudad o localidad"
-            label="Ciudad"
-            {...register('city', { required: true })}
-          />
-          <Input
-            type="date"
             label="Fecha de nacimiento"
-            {...register('birthdate', { required: true })}
+            type="date"
+            {...register('birthDate')}
+            error={errors.birthDate?.message}
           />
-  
-          <div className="flex justify-center m-4">
-            <button type="submit" className="btn w-full">
-              GUARDAR
-            </button>
-          </div>
+
+            <div className="role-selection">
+                <label>
+                    <input
+                        type="radio"
+                        {...register('activeRole')}
+                        value="ROLE_CLIENT"
+                    /> Cliente
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        {...register('activeRole')}
+                        value="ROLE_PROVIDER"
+                    /> Proveedor
+                </label>
+                {errors.activeRole && (
+                    <p className="error">{errors.activeRole.message}</p>
+                )}
+            </div>
+
+            <button type="submit">Registrarse</button>
           {/* <DevTool control={control} /> */}
         </form>
       </div>

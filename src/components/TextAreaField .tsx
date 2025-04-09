@@ -18,7 +18,7 @@ const TextAreaField: React.FC<TextAreaFieldProps> = ({ name, control, defaultVal
             <textarea
             id={name}
             { ...field }
-            className='textarea textarea-bordered resize-none w-full h-28 rounded-lg text-lg sm:text-sm'
+            className='textarea textarea-bordered resize-none w-full h-28 rounded-lg text-lg bg-white dark:bg-neutral-700 sm:text-sm'
             />
         )}
         />

@@ -18,10 +18,10 @@ const ThemeSelect: React.FC<ThemeSelectProps> = ({ displayType = "icons" }) =>
     }
 
     const renderIcons = () => (
-        <div className="">
+       
           <div className="relative cursor-pointer transition-all duration-500 ease-in-out" onClick={handleToggle}>
             <div
-              className={`absolute w-10 h-10 rounded-full shadow-md flex items-center justify-center 
+              className={` w-10 h-10 rounded-full shadow-md flex items-center justify-center
               ${isDarkMode ? "bg-neutral-600 rotate-360" : "bg-white rotate-0"}
               transition-all duration-500 ease-in-out`}
             >
@@ -52,7 +52,7 @@ const ThemeSelect: React.FC<ThemeSelectProps> = ({ displayType = "icons" }) =>
               )}
             </div>
           </div>
-        </div>
+      
       );
     
       const renderToggle = () => (

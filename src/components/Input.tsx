@@ -1,26 +1,24 @@
 import { forwardRef } from 'react';
 
-interface InputProps {
-  type?: React.HTMLInputTypeAttribute; // Ajustado para coincidir con los tipos válidos de `input`.
-  placeholder?: string;
-  name?: string;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  error?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ type = 'text', placeholder, name, label, ...rest }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(({ label, error, ...props }, ref) => {
     return (
-      <label className="form-control w-full p-2 gap-2">
-        {label}
+      <div>
+        <label className="form-control w-full p-2 gap-2">
+          {label}
+        </label>
         <input
-          ref={ref}
-          type={type}
-          name={name}
-          placeholder={placeholder || 'Default placeholder'}
-          className="input input-bordered w-full"
-          {...rest}
+            ref={ref}
+            // placeholder={placeholder || 'Default placeholder'}
+            className="input input-bordered w-full bg-transparent text-black dark:bg-neutral-600"
+            { ...props }
         />
-      </label>
+        {error && <span className="error-message">{error}</span>}
+      </div>
     );
   }
 );

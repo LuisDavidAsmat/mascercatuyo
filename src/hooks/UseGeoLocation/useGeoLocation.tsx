@@ -3,9 +3,8 @@ import { useEffect, useState } from "react"
 
 const useGeoLocation = () => 
 {
-    const [location, setLocation] = useState<{ lat: number; lng: number} | null>(null);
+    const [userCoordinates, setUserCoordinates] = useState<{ lat: number; lng: number} | null>(null);
     const [error, setError] = useState<string | null>(null);
-    
 
     useEffect(() => 
     {
@@ -14,7 +13,7 @@ const useGeoLocation = () =>
             navigator.geolocation.getCurrentPosition(
                 (position) => 
                 {
-                    setLocation(
+                    setUserCoordinates(
                     {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
@@ -28,10 +27,10 @@ const useGeoLocation = () =>
         }
         else
         {
-            setError('Geolocation is not supported by this browser.');
+            setError('Error with geolocation.');
         }
     }, [])
 
-    return { location, error }
+    return { userCoordinates, error }
 }
 export default useGeoLocation;

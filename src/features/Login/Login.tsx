@@ -1,132 +1,120 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { LoginFormData } from './types/LoginFormData';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { LoginSchema } from './types/LoginSchema';
+import { loginUser } from '../../services/api.service';
+import Input from '../../components/Input';
+import { useAuthStore } from '../../stores/auth.store';
 
-type Props = {}
 
-const Login = (props: Props) => {
-    const [error, setError] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate();
-    const API_BASE_URL = import.meta.env.VITE_API_URL;
-  
-    const validatePassword = (pwd: string) => 
+
+const Login = () => 
+{
+  const 
+  {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError
+  } = useForm<LoginFormData>(
+  {
+    resolver: yupResolver(LoginSchema)
+  });
+
+  const navigate = useNavigate();
+  const setAuth = useAuthStore((state) => state.setAuth) 
+
+  const onSubmit = async (data:LoginFormData) => 
+  {
+    try 
     {
-      const regex = /^(?=.*[A-Z])(?=.*[@._\-+!*]).{8,}$/;
-      return regex.test(pwd);
-    };
-  
-    const handleSubmit = async (e: React.FormEvent) => 
+
+      const { token, refreshToken, userBasicInfo } = await loginUser(data);
+
+      setAuth(
+      {
+        token,
+        refreshToken,
+        userBasicInfo        
+      });
+
+
+      switch(userBasicInfo.userRole) {
+        case 'ROLE_CLIENT':
+          navigate('/servicio-solicitar');
+          break;
+        case 'ROLE_PROVIDER':
+          navigate('/servicio-ofrecer');
+          break;
+        case 'ROLE_ADMIN':
+          navigate('/admin');
+          break;
+        default:
+          navigate('/');
+      }
+
+    } 
+    catch (error) 
     {
-      e.preventDefault();
+      setError('root', {
+        type: 'manual',
+        message: 'Credenciales inválidas. Por favor, inténtelo de nuevo.'
+      });
+    }
+  }
+
+  return (
+      <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
       
-      if (!validatePassword(password)) 
-      {
-        setError('La contraseña debe tener 8 carácteres como máximo, incluya una letra mayuscula y contenga @, ., _, or - symbols.');
-  
-        return;
-      }
-      
-      try 
-      {
-        
-        const response = await axios.post(`${API_BASE_URL}/login`,
-        {
-          correo: email,
-          contrasena: password,
-        });
-        
-        if(response.data.mensaje === 'Login exitoso')
-        {
-          const encodedEmail = encodeURIComponent(email);
-  
-          try
-          {
-            const userResponse = await axios.get<any>(`${API_BASE_URL}/usuarios/info/${encodedEmail}`); 
-  
-            const userId = userResponse.data.id
-            const userEmail = userResponse.data.correo
-  
-            localStorage.clear();
-  
-            localStorage.setItem('userId', userId.toString()); 
-            localStorage.setItem('userEmail', userEmail);                
-            
-          }
-          catch(error)
-          {
-            console.error('Error fetching user information ', error)
-          }
-  
-          navigate("/");
-        }
-        setError('');
-      } 
-      catch (error) 
-      {
-        if(axios.isAxiosError(error))
-        {
-          setError(error.response?.data.error || 'Error al intentar iniciar sesión');
-        }
-        else 
-        {
-          setError('Error al registrarse con el servidor.');
-        }
-      }
-    };
-  
-  
-    return (
-      <div className='bg-white pb-20'>
-        <img src="/svg/logo.svg" alt="logo" className='pt-8 mx-auto'/>
-        
-        <div className="flex items-center justify-center gap-2">
-          <h3 className="text-3xl font-bold text-center mt-5 text-black ">¡Bienvenido(a)!</h3>
-          <img src="/img/ola.png" className="mt-4 w-8 h-8"></img>
-        </div>
-        <h3 className="mt-8 text-black font-medium text-3xl text-center tracking-wide">Inicia sesión</h3>
-        <form className='flex flex-col mt-5 card p-10 sm:px-64 sm:space-y-4 text-black text-left' name="login" id="login">
-          <label htmlFor="Email" className='place-items-start' >Correo Electrónico</label>
-          <input type='email' id='Email' placeholder='Ingresa tu Correo' required 
-          className='w-1/2 p-2 border border-gray-300 rounded mb-4 bg-white text-black' style={{ width: '100%' }} onChange={(e) => setEmail(e.target.value)} />
-          
-          <label htmlFor='Password'>Contraseña</label>
-          <div className="relative">
-            <input
-              type={showPassword ? 'text' : 'password'}
-              id='Password'
-              placeholder='Contraseña'
-              required
-              className='w-full w-1/2 p-2 border border-gray-300 text-black rounded mb-4 bg-white'
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-2 top-2 "
-            >
-              {showPassword ? <img className="w-6 h-6" src="/img/visible.png" alt="Show" /> : <img className="w-6 h-6" src="/img/esconder.png" alt="Hide" />}
-            </button>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {errors.root && (
+          <div className="alert alert-error">
+            <span>{errors.root.message}</span>
           </div>
-  
-          <a href="#" className="text-right underline" >¿Olvidaste tu contraseña?</a>
-  
-          <button type="submit" className='mt-4 bg-orange-100 py-2 rounded-lg text-xl font-medium uppercase
-          border border-emerald-950' onClick={handleSubmit}>Iniciar Sesión</button>
-        </form>
-        
-        <section className='flex justify-around items-center px-72'>
-          <hr className='mt-4 border w-2/6'/>
-          <p className="w-2/5 text-xl text-center mt-5 text-black">O Inicia Sesión con</p>
-          <hr className='mt-4 border w-2/6'/>
-        </section>
+        )}
 
-  
-        <p className='text-black'>¿No tienes cuenta?</p>
-        <Link to={'/register'} className='block mt-8 w-36 mx-auto rounded-md p-2 text-black bg-orange-100 border border-emerald-950'>Crear Cuenta</Link>
-      </div>
+        <Input
+          label="Email"
+          type="email"
+          placeholder="tu@email.com"
+          {...register('email')}
+          error={errors.email?.message}
+        />
+
+        <Input
+          label="Contraseña"
+          type="password"
+          placeholder="••••••••"
+          {...register('password')}
+          error={errors.password?.message}
+        />
+
+        <div className="flex items-center justify-between">
+          <a href="/forgot-password" className="text-sm text-primary hover:underline">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="btn btn-primary w-full mt-4"
+        >
+          {isSubmitting ? 'Iniciando...' : 'Iniciar Sesión'}
+        </button>
+
+        <div className="text-center mt-4">
+          <span className="text-sm">
+            ¿No tienes cuenta?{' '}
+            <a href="/register" className="text-primary hover:underline">
+              Regístrate
+            </a>
+          </span>
+        </div>
+      </form>
+    </div>
     );
 }
 

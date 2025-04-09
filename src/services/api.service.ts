@@ -1,57 +1,203 @@
 import axios from 'axios';
 import { RequestedService } from '../components/pages/ServiceDetails/ServiceDetails';
+import { LoginFormData, LoginResponse } from '../features/Login/types/LoginFormData';
+import { MCTUserLoginInfo, MCTUserRole } from '../features/Auth/types/MCTUser';
+import { MCTUserBasicInfo, useAuthStore } from '../stores/auth.store';
 
 const API_KEY_IMG = import.meta.env.VITE_API_KEY_IMG;
-const API_BASE_URL = import.meta.env.VITE_API;
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+//export const loginUser = async (loginRequest: LoginFormData) => 
+export const loginUser = async (loginRequest: LoginFormData): Promise<{
+  token: string;
+  refreshToken: string;
+  userBasicInfo: MCTUserBasicInfo;
+}> => 
+{
+  try 
+  {
+    
+    const response = await axios.post<{
+      token: string;
+      refreshToken: string;
+      userId: number;
+      username: string;
+      email: string;
+      userRole: MCTUserRole;
+    }>(
+      `${API_BASE_URL}/v1/login`, 
+      loginRequest,
+      {
+        headers: 
+        {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    const userBasicInfo: MCTUserBasicInfo = 
+    {
+      userId: response.data.userId,
+      username: response.data.username,
+      email: response.data.email,
+      userRole: response.data.userRole
+    }
+
+    // if (response.data.token) 
+    // {
+    //   axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+    //   localStorage.setItem('token', response.data.token);
+    // }
+
+    //return response.data;
+    return {
+      token: response.data.token,
+      refreshToken: response.data.refreshToken,
+      userBasicInfo
+      
+    }
+  } 
+  catch (error) 
+  {
+    if (axios.isAxiosError(error)) 
+    {
+      
+      if (error.response) 
+      {
+        switch (error.response.status) 
+        {
+          case 401:
+            throw new Error('Credenciales inválidas');
+          case 403:
+            throw new Error('Cuenta no verificada');
+          case 429:
+            throw new Error('Demasiados intentos. Intente más tarde');
+          default:
+            throw new Error('Error en el servidor');
+        }
+      } 
+      else if (error.request) {
+        throw new Error('No se pudo conectar al servidor');
+      }
+    }
+    throw new Error('Error desconocido al iniciar sesión');
+  }
+}
 
 
-console.log(API_BASE_URL);
+
+export const switchUserRole = async (newRole: string): Promise<LoginResponse> => 
+{
+  try 
+  {
+    const { token } = useAuthStore.getState();
+    
+    const response = await axios.post(
+      `${API_BASE_URL}/v1/user/switch-role`, 
+      null,
+      {
+        params: { newRole },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    return response.data as LoginResponse;
+  } 
+  catch (error) 
+  {
+    console.error("Error en el registro:", error);
+    throw new Error("No se pudo registrar el usuario");
+  }
+};
 
 
+export const createServiceOffer = async (serviceData: any) => {
+  try 
+  {
+    const { token } = useAuthStore.getState();
+
+    const response = await axios.post(
+      `${API_BASE_URL}/v1/services/offer`, 
+      serviceData,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+      
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error creating service request:", error);
+    throw new Error("No se pudo crear la solicitud de servicio");
+  }
+};
+
+export const createServiceRequest = async (serviceData: any) => {
+  try 
+  {
+    const { token } = useAuthStore.getState();
+
+    const response = await axios.post(
+      `${API_BASE_URL}/v1/services/request`, 
+      serviceData,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error creating service request:", error);
+    throw new Error("No se pudo crear la solicitud de servicio");
+  }
+};
+
+
+export const registerUser = async (userData: any) => 
+  {
+    try 
+    {
+      const response = await axios.post(`${API_BASE_URL}/v1/register`, userData);
+      return response.data;
+    } 
+    catch (error) 
+    {
+      console.error("Error en el registro:", error);
+      throw new Error("No se pudo registrar el usuario");
+    }
+  };
 
 export const uploadPhoto = async (file: File): Promise<string> => {
   const formData = new FormData();
   formData.append('image', file);
 
-  try {
+  try 
+  {
     const response = await axios.post(`https://api.imgbb.com/1/upload?key=${API_KEY_IMG}`, formData);
     return response.data.data.url;
-  } catch (error) {
+  } 
+  catch (error) 
+  {
     console.error('Error uploading the image:', error);
     throw new Error('Error uploading the image');
   }
 };
 
 
-export const registerUser = async (userData: any) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/usuarios`, userData);
-    return response.data;
-  } catch (error) {
-    console.error("Error en el registro:", error);
-    throw new Error("No se pudo registrar el usuario");
-  }
-};
 
-export const createServiceRequest = async (serviceData: any) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/serviciosGeo/cliente`, serviceData);
-    return response.data;
-  } catch (error) {
-    console.error("Error creating service request:", error);
-    throw new Error("No se pudo crear la solicitud de servicio");
-  }
-};
 
-export const createServiceOffer = async (serviceData: any) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/serviciosGeo/prestador`, serviceData);
-    return response.data;
-  } catch (error) {
-    console.error("Error creating service request:", error);
-    throw new Error("No se pudo crear la solicitud de servicio");
-  }
-};
+
+
+
+
+
 
 export const fetchAllServicesByCategory = async (category: string) => 
 {
@@ -71,7 +217,7 @@ export const fetchAllServicesByCategory = async (category: string) =>
 export const fetchAllServicesByCategoryAndProximity = async (
   category: string,
   userLat: number,
-  userLon: number,
+  userLng: number,
   radius: number
 ) => 
 
@@ -83,7 +229,7 @@ export const fetchAllServicesByCategoryAndProximity = async (
       {
         params: {
           userLat,
-          userLon,
+          userLng,
           radius,
         },
       }
