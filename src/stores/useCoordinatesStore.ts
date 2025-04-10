@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface CoordinatesState 
 {
@@ -8,11 +9,23 @@ interface CoordinatesState
 
 }
 
+export const useCoordinatesStore = create<CoordinatesState>()(
+    persist(
+        (set) => (
+        {
+            userLat: null, 
+            userLng: null, 
+            setCoordinates: (lat, lng) => set({ userLat: lat, userLng: lng }),
+        }),
+        {
+            name: "coordinates-storage",
+        }
+    )
+);
 
-
-export const useCoordinatesStore = create<CoordinatesState>((set) => (
-{
-    userLat: null, 
-    userLng: null, 
-    setCoordinates: (lat, lng) => set({ userLat: lat, userLng: lng }),
-}));
+// export const useCoordinatesStore = create<CoordinatesState>((set) => (
+// {
+//     userLat: null, 
+//     userLng: null, 
+//     setCoordinates: (lat, lng) => set({ userLat: lat, userLng: lng }),
+// }));

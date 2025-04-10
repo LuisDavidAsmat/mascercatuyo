@@ -190,6 +190,46 @@ export const uploadPhoto = async (file: File): Promise<string> => {
   }
 };
 
+export const fetchAllServicesByCategoryAndProximity = async (
+  category: string,
+  userLat: number,
+  userLng: number,
+  radius: number
+) => 
+
+{
+  try 
+  {
+    const { token } = useAuthStore.getState();
+
+    const response = await axios.get<any[]>(
+      `${API_BASE_URL}/v1/services/offer/all-nearby/${category}`,
+      {
+        params: {
+          userLat,
+          userLng,
+          radius,
+        },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    ); 
+
+    return response.data;
+  } 
+  catch (error) 
+  {
+    console.error('Error fetching services', error);
+    throw new Error('Error fetching services');
+  }
+}
+
+
+
+
+
 
 
 
@@ -214,41 +254,24 @@ export const fetchAllServicesByCategory = async (category: string) =>
   }
 }
 
-export const fetchAllServicesByCategoryAndProximity = async (
-  category: string,
-  userLat: number,
-  userLng: number,
-  radius: number
-) => 
 
-{
-  try 
-  {
-    const response = await axios.get<any[]>(
-      `${API_BASE_URL}/serviciosGeo/servicios-cercanos/${category}`,
-      {
-        params: {
-          userLat,
-          userLng,
-          radius,
-        },
-      }
-    ); 
-
-    return response.data;
-  } 
-  catch (error) 
-  {
-    console.error('Error fetching services', error);
-    throw new Error('Error fetching services');
-  }
-}
 
 export const fetchServiceById = async (serviceId: number) => 
   {
+
+    
+
     try 
     {
-      const response = await axios.get<any>(`${API_BASE_URL}/serviciosGeo/${serviceId}`); 
+      const {token} = useAuthStore.getState();
+      const response = await axios.get<any>(`${API_BASE_URL}/v1/services/offer/details/${serviceId}`, 
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      ); 
   
       return response.data;
     } 

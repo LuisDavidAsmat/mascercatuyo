@@ -19,6 +19,7 @@ const ServicesCatalogue = (props: Props) =>
     const [showNearServices, setShowNearServices] = useState(false); 
 
     const { userLat, userLng } = useCoordinatesStore();
+console.log(userLat, userLng);
 
     const categoryLabel = categories.find(cat => cat.value === category)?.label || ''; 
 
@@ -45,14 +46,6 @@ const ServicesCatalogue = (props: Props) =>
 
         checkCategory();
     }, [category, navigate]);
-
-    // useEffect(() => 
-    // {
-    //     if (location) {
-    //         setUserLat(location.lat);
-    //         setUserLon(location.lng);
-    //     }
-    // }, [location]);
    
 
     useEffect(() => {
@@ -69,14 +62,12 @@ const ServicesCatalogue = (props: Props) =>
                 let fetchedservices = [];
                 
             
-                if(showNearServices && userLat !== null && userLng !== null)
-                    {   
+                if( userLat !== null && userLng !== null)
+                {   console.log('missing');
+                
                     fetchedservices = await fetchAllServicesByCategoryAndProximity(category, userLat, userLng, 100);   
                 }
-                else 
-                {                   
-                    fetchedservices = await fetchAllServicesByCategory(category);
-                }
+
                 setServices(fetchedservices);
             } 
             catch(error)
@@ -109,7 +100,7 @@ const ServicesCatalogue = (props: Props) =>
 
     return (
         
-        <main className="px-4 sm:px-48 bg-white dark:bg-neutral-900">
+        <main className="h-svh px-4 sm:px-48 bg-white dark:bg-neutral-900">
             <h1 className="uppercase pt-8 font-bold text-2xl text-black dark:text-white">{categoryLabel}</h1>            
             <h2 className="w-5/6 inline-flex bg-red-500 border-t bg-gradient-to-b from-gray-50 to-gray-50 py-2 px-2 text-left text-xl text-black">{services.length} resultados</h2>
                 
@@ -121,7 +112,7 @@ const ServicesCatalogue = (props: Props) =>
                     <svg className=" h-8 w-8 stroke-white stroke-2 bg-transparent cursor-pointer " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.391 4.262a1 1 0 0 0-1.46.035l-6.177 6.919a1 1 0 0 0-.254.666V19.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V16a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v3.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-7.591a1 1 0 0 0-.287-.7l-6.822-6.947Z"/></svg>
                 </Link>  
             </button>
-            <div className="flex justify-center space-x-4 mt-4">
+            {/* <div className="flex justify-center space-x-4 mt-4">
                 <button
                     type="button"
                     className={`p-3 rounded-full ${!showNearServices ? 'bg-orange-400' : 'bg-gray-300'}`}
@@ -136,7 +127,7 @@ const ServicesCatalogue = (props: Props) =>
                 >
                     Prestadores cercanos
                 </button>
-            </div>
+            </div> */}
             <ul className="mt-4 pt-14 pb-28 sm:px-10 grid grid-cols-2 sm:grid-cols-4 gap-y-2 ">
                 {isLoading ? (
                     <p>Loading...</p>
@@ -152,10 +143,10 @@ const ServicesCatalogue = (props: Props) =>
                             </figure >
                                 <span className="block mt-1 p-1 uppercase text-xs sm:text-[0.5rem] text-left truncate">
                                     
-                                    {categories.find(category => category.value === service.categoria)?.label || '' }
+                                    {categories.find(category => category.value === service.category)?.label || '' }
                                 </span>
                                 
-                                <h2 className="text-center px-1"><Link to={`/servicios/${category}/${service.servicioId}`} className="mt-4 text-lg underline font-semibold sm:text-md"> {service.nombrePrestador} </Link></h2>
+                                <h2 className="text-center px-1"><Link to={`/servicio/${category}/${service.id}`} className="mt-4 text-lg underline font-semibold sm:text-md"> {service.description} </Link></h2>
                                 <span className="text-md sm:text-xs">Comuna, región</span>
                         </div>
                     </li>

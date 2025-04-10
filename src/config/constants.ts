@@ -1,9 +1,12 @@
 import { MCTUserRole } from "../features/Auth/types/MCTUser";
+import Categories from "../features/Categories/Categories";
 import Home from "../features/Home/Home";
 import Login from "../features/Login/Login";
 import OfferService from "../features/OfferService/OfferService";
 import Register from "../features/Register/Register";
 import RequestService from "../features/RequestService/RequestService";
+import ServiceDetails from "../features/ServiceDetails/ServiceDetails";
+import ServicesCatalogue from "../features/ServicesCatalogue/ServicesCatalogue";
 import SwitchRole from "../features/SwitchRole/SwitchRole";
 
 
@@ -115,7 +118,10 @@ export const PUBLIC_ROUTES = [
 export const PROTECTED_ROUTES = [
   { path: '/servicio-solicitar', element: RequestService, roles: [MCTUserRole.ROLE_CLIENT]  },
   { path: '/servicio-ofrecer', element: OfferService, roles: [MCTUserRole.ROLE_PROVIDER] },
-  { path: '/cambiar-rol', element: SwitchRole, roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] }
+  { path: '/cambiar-rol', element: SwitchRole, roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] },
+  { path: '/categorias', element: Categories, roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] } ,
+  { path: '/servicio/:category', element: ServicesCatalogue , roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] },
+  { path: "/servicio/:category/:servicioId", element:ServiceDetails, roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] }
   // {
   //   path: '/admin',
   //   element: AdminDashboard,

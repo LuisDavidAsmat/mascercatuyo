@@ -1,0 +1,12 @@
+.inverse-gradient-background {
+    background-image: linear-gradient(
+      to bottom,
+      #868989 0%,
+      #808685 16.67%,
+      #687574 33.33%,
+      #475A59 50%,
+      #2B403F 66.67%,
+      #192A28 83.33%,
+      #081312 100%
+    );
+  }

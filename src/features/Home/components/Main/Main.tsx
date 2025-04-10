@@ -1,4 +1,3 @@
-import React from 'react'
 import './Main.css'
 import NavBar from './components/NavBar'
 import Testimonials from './components/Testimonials/Testimonials';
@@ -8,9 +7,7 @@ import CTA from './components/CTA/CTA'
 import HorizontalSlider from './components/HorizontalSlider/HorizontalSlider';
 
 
-type Props = {}
-
-const Main = (props: Props) => {
+const Main = () => {
   return (
     <main className='bg-black px-16 gradient-background text-white'>
         <NavBar />

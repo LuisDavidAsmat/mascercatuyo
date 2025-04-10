@@ -34,11 +34,13 @@ const UserLocation: React.FC<UserLocationProps> = ({ mapDimensions, isFloating, 
             if (onCoordinatesChange) {
                 onCoordinatesChange(initialCoordinates); // Pass initial coordinates back to parent
             }
-
+            console.log(initialCoordinates.lat, initialCoordinates.lng);
             setCoordinates(initialCoordinates.lat, initialCoordinates.lng); // store
+            console.log(initialCoordinates.lat, initialCoordinates.lng);
         }
 
     }, [initialCoordinates])
+
 
 
     const handleLocationClick = () => 
@@ -55,6 +57,8 @@ const UserLocation: React.FC<UserLocationProps> = ({ mapDimensions, isFloating, 
 
 
             setCoordinates(userCoordinates.lat, userCoordinates.lng); // store
+            console.log(userCoordinates.lat, userCoordinates.lng);
+            
         }
     };
 
