@@ -23,7 +23,6 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose, message })
         <button type='button' className='absolute top-0 h-screen w-full' onClick={onClose}>
         </button>
     </dialog>
-    
   )
 }
 

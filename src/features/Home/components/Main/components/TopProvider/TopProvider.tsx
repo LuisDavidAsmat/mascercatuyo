@@ -1,8 +1,6 @@
-import React from 'react'
 
-type Props = {}
 
-const TopProvider = (props: Props) => {
+const TopProvider = () => {
   return (
     <section className='mt-16 flex gap-4 text-black'>
           <section className='flex justify-center items-center gap-4 pl-48'>

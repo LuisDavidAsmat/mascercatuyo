@@ -2,24 +2,20 @@ import React from 'react'
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { categories } from '../../config/constants';
-import { fetchAllServicesByCategory, fetchAllServicesByCategoryAndProximity } from '../../services/api.service';
+import { fetchAllServicesByCategoryAndProximity } from '../../services/api.service';
 import { useCoordinatesStore } from '../../stores/useCoordinatesStore';
+import ServiceCard from './components/ServiceCard';
+import CategoryHeader from './components/CategoryHeader';
+import ShowMoreButton from './components/ShowMoreButton';
 
-type Props = {}
 
-const ServicesCatalogue = (props: Props) => 
+const ServicesCatalogue = () => 
 {
     const { category } = useParams();
-    const navigate = useNavigate();
     const [services, setServices] = useState<any[]>([]);
-    const [categoryExists, setCategoryExists] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isCheckingCategory, setIsCheckingCategory] = useState(true);
     const [visibleCount, setVisibleCount] = useState(8);
-    const [showNearServices, setShowNearServices] = useState(false); 
-
     const { userLat, userLng } = useCoordinatesStore();
-console.log(userLat, userLng);
 
     const categoryLabel = categories.find(cat => cat.value === category)?.label || ''; 
 
@@ -27,26 +23,6 @@ console.log(userLat, userLng);
     {
         setVisibleCount((prevCount) => prevCount + 8);
     }
-
-    useEffect(() => 
-    {
-        const checkCategory = () => 
-        {
-            const foundCategory = categories.find(cat => cat.value === category);
-
-            setCategoryExists(!!foundCategory?.value);
-            
-            if(!foundCategory)
-            {
-                navigate('/404');
-            }
-
-            setIsCheckingCategory(false);
-        }
-
-        checkCategory();
-    }, [category, navigate]);
-   
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -60,7 +36,6 @@ console.log(userLat, userLng);
             try 
             {
                 let fetchedservices = [];
-                
             
                 if( userLat !== null && userLng !== null)
                 {   console.log('missing');
@@ -80,18 +55,10 @@ console.log(userLat, userLng);
                 setIsLoading(false); 
             }
         };
-    
-        if (categoryExists) 
-        { 
-            fetchServices();
-        }
-    }, [category, categoryExists, showNearServices, userLat, userLng]); 
-    
 
-    if (isCheckingCategory)
-    {
-        return <p>Checking category...</p>
-    }
+        fetchServices();
+        
+    }, [category, userLat, userLng]); 
 
     if (isLoading)
     {
@@ -101,74 +68,20 @@ console.log(userLat, userLng);
     return (
         
         <main className="h-svh px-4 sm:px-48 bg-white dark:bg-neutral-900">
-            <h1 className="uppercase pt-8 font-bold text-2xl text-black dark:text-white">{categoryLabel}</h1>            
-            <h2 className="w-5/6 inline-flex bg-red-500 border-t bg-gradient-to-b from-gray-50 to-gray-50 py-2 px-2 text-left text-xl text-black">{services.length} resultados</h2>
-                
-            <button type="button" className=" sticky top-[4.5rem] bg-orange-400 p-3 rounded-full">
-                <Link
-                to="/"
-                className=""
-                >                
-                    <svg className=" h-8 w-8 stroke-white stroke-2 bg-transparent cursor-pointer " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.391 4.262a1 1 0 0 0-1.46.035l-6.177 6.919a1 1 0 0 0-.254.666V19.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V16a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v3.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-7.591a1 1 0 0 0-.287-.7l-6.822-6.947Z"/></svg>
-                </Link>  
-            </button>
-            {/* <div className="flex justify-center space-x-4 mt-4">
-                <button
-                    type="button"
-                    className={`p-3 rounded-full ${!showNearServices ? 'bg-orange-400' : 'bg-gray-300'}`}
-                    onClick={() => setShowNearServices(false)}
-                >
-                    Todos los prestadores
-                </button>
-                <button
-                    type="button"
-                    className={`p-3 rounded-full ${showNearServices ? 'bg-orange-400' : 'bg-gray-300'}`}
-                    onClick={() => setShowNearServices(true)}
-                >
-                    Prestadores cercanos
-                </button>
-            </div> */}
+            <CategoryHeader categoryLabel={categoryLabel} resultsCounter={services.length}/>  
             <ul className="mt-4 pt-14 pb-28 sm:px-10 grid grid-cols-2 sm:grid-cols-4 gap-y-2 ">
-                {isLoading ? (
-                    <p>Loading...</p>
-                ) : services.length > 0 ?
-                (services.slice(0, visibleCount).map((service, index) => (
-                    <li key={index}>
-                        <div className="w-44 h-56 border rounded-md text-black dark:text-white dark:bg-stone-800">
-                            <figure className="h-36">
-                                <img
-                                src="https://media.istockphoto.com/id/1428071835/photo/man-an-electrical-technician-working-in-a-switchboard-with-fuses.jpg?s=1024x1024&w=is&k=20&c=siUQWIxuONfYjICMMHoeYIhzgpEf3ky8GJeKqnZa1BE="
-                                alt="Shoes"
-                                className="rounded-t-md w-full h-full " />
-                            </figure >
-                                <span className="block mt-1 p-1 uppercase text-xs sm:text-[0.5rem] text-left truncate">
-                                    
-                                    {categories.find(category => category.value === service.category)?.label || '' }
-                                </span>
-                                
-                                <h2 className="text-center px-1"><Link to={`/servicio/${category}/${service.id}`} className="mt-4 text-lg underline font-semibold sm:text-md"> {service.description} </Link></h2>
-                                <span className="text-md sm:text-xs">Comuna, región</span>
-                        </div>
-                    </li>
-                ))) : (
-                    <p className="w-96 mx-auto text-center text-black">Aún no hay servicios ofrecidos para esta categoría.</p>
-                )}
-                {services.length > visibleCount && (
-                    <div className="flex justify-center mt-4">
-                    <button
-                      onClick={handleShowMore}
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                    >
-                      Show More
-                    </button>
-                  </div>
-                )}
-               
+                {services.length > 0 ?
+                    (services.slice(0, visibleCount).map((service, index) => (
+                        <li key={index}>
+                            <ServiceCard service={service} currentCategory={category} />
+                        </li>
+                    ))) : (
+                        <p className="w-96 mx-auto text-center text-black">Aún no hay servicios ofrecidos para esta categoría.</p>
+                    )}
+                {services.length > visibleCount && ( <ShowMoreButton onClick={handleShowMore} /> )}               
             </ul>
         </main>
-
     )
-
 }
 
 export default ServicesCatalogue

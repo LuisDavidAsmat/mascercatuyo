@@ -1,9 +1,7 @@
-import React from 'react'
 import ImgHolder from '../../../../../../components/ImgHolder'
 
-type Props = {}
 
-const HeroSection = (props: Props) => {
+const HeroSection = () => {
   return (
     <>
         <h1 className='mt-8 text-left text-5xl font-bold tracking-wide'>Un servicio <span className='text-orange-500'>M</span>ás Cerca Tuyo</h1>

@@ -14,15 +14,18 @@ interface FloatinMenuProps
     options: MenuOption[];
     background?: string;
     onClose?:() => void;
+    isVisible: boolean;
 }
 
-const FloatingMenu: React.FC<FloatinMenuProps> = ({ options, background = "bg-white", onClose }) => {
+const FloatingMenu: React.FC<FloatinMenuProps> = ({ options, background = "bg-white", onClose, isVisible }) => {
 
     return (
         <div 
-        className={`absolute top-10 w-56 flex flex-col flex-start gap-4 rounded-md shadow-lg p-4 bg-white border 
-        
-        dark:border-neutral-500 dark:bg-neutral-600`}>
+        className={`absolute top-16 z-50 w-56 flex flex-col flex-start gap-2 rounded-md shadow-lg p-4 bg-white border 
+        transition-all duration-300 ease-in-out
+        ${isVisible ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}        
+        dark:border-neutral-500 dark:bg-neutral-600        
+        `}>
             <button type='button' className="w-full flex justify-end ">
                 <svg
                     className="h-5 w-5 stroke-black stroke-2 bg-transparent cursor-pointer fill-none dark:stroke-neutral-400 dark:hover:stroke-neutral-300"

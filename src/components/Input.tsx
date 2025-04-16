@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
+{
   label?: string;
   error?: string;
 }
@@ -14,7 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ label, error, ...props
         <input
             ref={ref}
             // placeholder={placeholder || 'Default placeholder'}
-            className="input input-bordered w-full bg-transparent text-black dark:bg-neutral-600"
+            className="input input-bordered w-full border border-gray-300 bg-transparent text-black dark:bg-neutral-600"
             { ...props }
         />
         {error && <span className="error-message">{error}</span>}

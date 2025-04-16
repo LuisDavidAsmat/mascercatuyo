@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import Map from '../../../../../../hooks/Map/Map';
+import { FC } from 'react'
 import UserLocationMap from './UserLocationMap';
 
 interface MapPopupProps 

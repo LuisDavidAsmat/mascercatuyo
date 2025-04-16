@@ -1,8 +1,5 @@
-import React from 'react'
-
-type Props = {}
-
-const Footer = (props: Props) => {
+const Footer = () => 
+{
   return (
     <footer className="py-8 px-20 bg-[#D2DCDB] dark:bg-neutral-800 p-10 text-black text-sm dark:text-white">
         <nav>
@@ -37,21 +34,18 @@ const Footer = (props: Props) => {
                         </li>
                         <li>
                             <a className="hover:underline cursor-pointer">Condiciones de la plataforma</a>
-
                         </li>
                         <li>
                                <a className="hover:underline cursor-pointer">Poliica para Desarrolladores</a>
-
-                           </li>
-                       </ul>
-                   </li>
-               </ul>
-            </nav>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
            
         <p className="text-sm mt-24">Copyright © {new Date().getFullYear()} - Todos los derechos reservados. Conoce nuestra Política de privacidad.</p>
         <p  className="text-sm">XXXXX Chile SPA.- RUT: XX.XXX.XXX-X. Lorem ipsum dolor sit amet  590, Las Condes, Santiago de Chile.</p>
         <p  className="mt-8 text-sm">Cambiar a la versión mobile</p>          
-                
     </footer>
   )
 }

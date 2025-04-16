@@ -1,5 +1,6 @@
 
-const ConfirmationModal: React.FC<{
+const ConfirmationModal: React.FC<
+{
     show: boolean;
     onConfirm: () => void;
     onCancel: () => void;

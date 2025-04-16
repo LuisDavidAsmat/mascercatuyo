@@ -227,7 +227,36 @@ export const fetchAllServicesByCategoryAndProximity = async (
 }
 
 
+export const fetchUserDetails = async (email: string | undefined) =>
+{
+  try 
+  {
+    const { token } = useAuthStore.getState();
 
+    const response = await axios.get(
+      `${API_BASE_URL}/v1/user/details`, 
+     
+      {
+        params: { email, },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      }
+    );
+    return response.data;
+  } catch (error) 
+  {
+    console.error("Error fetching user details:", error);
+
+    // Provide a more specific error message
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch user details"
+      );
+    }
+    throw new Error("An unexpected error occurred");
+  }
+}
 
 
 
@@ -256,31 +285,28 @@ export const fetchAllServicesByCategory = async (category: string) =>
 
 
 
-export const fetchServiceById = async (serviceId: number) => 
-  {
-
-    
-
-    try 
-    {
-      const {token} = useAuthStore.getState();
-      const response = await axios.get<any>(`${API_BASE_URL}/v1/services/offer/details/${serviceId}`, 
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      ); 
+// export const fetchServiceById = async (serviceId: number) => 
+//   {
+//     try 
+//     {
+//       const {token} = useAuthStore.getState();
+//       const response = await axios.get<any>(`${API_BASE_URL}/v1/services/offer/details/${serviceId}`, 
+//         {
+//           headers: {
+//             'Authorization': `Bearer ${token}`,
+//             'Content-Type': 'application/json'
+//           }
+//         }
+//       ); 
   
-      return response.data;
-    } 
-    catch (error) 
-    {
-      console.error('Error fetching services', error);
-      throw new Error('Error fetching services');
-    }
-  }
+//       return response.data;
+//     } 
+//     catch (error) 
+//     {
+//       console.error('Error fetching services', error);
+//       throw new Error('Error fetching services');
+//     }
+//   }
   
 export const hireServiceRequest  = async (requestedService: RequestedService) => 
 {

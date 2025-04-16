@@ -1,11 +1,10 @@
-
 import { Link } from 'react-router'
 import ImgHolder from '../../../../../../components/ImgHolder'
 
 
-
 const CTA = () => 
 {
+  
   return (
     <div>
         <ImgHolder imgPath={"./img/hero-subtitle-img.png"} customClass='w-2/4 mx-auto mt-20'/>
@@ -13,7 +12,6 @@ const CTA = () =>
           <Link to={"servicio-solicitar"} 
             className="w-3/12 mx-auto py-2 rounded-xl uppercase text-black text-center bg-orange-100 border border-emerald-950
             hover:bg-btn-hover active:bg-orange-400
-           
             ">
             Solicitar servicio
           </Link>
@@ -27,6 +25,9 @@ const CTA = () =>
             Ofrecer servicio
           </Link>
         </section>
+        {
+
+        }
     </div>
   )
 }

@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-
-import { Link, useNavigate } from 'react-router';
-import { categories } from '../../../../../config/constants';
+import { useNavigate } from 'react-router';
 
 
 interface ButtonNav {

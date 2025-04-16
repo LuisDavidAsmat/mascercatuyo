@@ -13,7 +13,7 @@ export const useConsentStore = create<ConsentStore>()(
             setHasConsent: (consent) => set({ hasConsent: consent }),
         }),
         {
-            name: 'user-consent', // Key for localStorage
+            name: 'user-consent', 
         }
     )
 );

@@ -5,6 +5,8 @@ import MapPopup from './MapPopup';
 import useUserCoordinates from './useUserCoordinates';
 import LocationButton from './LocationButton';
 import { useCoordinatesStore } from '../../../../../../stores/useCoordinatesStore';
+import { useAuthStore } from '../../../../../../stores/auth.store';
+import { Link } from 'react-router';
 
 interface UserLocationProps 
 {
@@ -18,6 +20,7 @@ const UserLocation: React.FC<UserLocationProps> = ({ mapDimensions, isFloating, 
 {
     const [isPopupVisible, setPopupVisible] = useState(false);
     const [userCoordinates, setUserCoordinates] = useState<{ lat: number; lng: number } | null>(null);
+    const { isAuthenticated } = useAuthStore.getState();
 
     const { hasConsent, setHasConsent } = useConsentStore();
     const { userCoordinates: initialCoordinates } = useGeoLocation();
@@ -26,13 +29,31 @@ const UserLocation: React.FC<UserLocationProps> = ({ mapDimensions, isFloating, 
 
     const { setCoordinates } = useCoordinatesStore();
 
+    if (!isAuthenticated()) 
+    {
+        return(
+        <div className='flex gap-1 items-center'>
+             <svg className="h-4 w-4 fill-current text-orange-500 stroke-2 stroke-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21c3.5-3.6 7-6.824 7-10.8C19 6.224 15.866 3 12 3s-7 3.224-7 7.2 3.5 7.2 7 10.8Z" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="font-semibold underline cursor-pointer">
+                <Link to="/login">
+                    Ingresa tu ubicación
+                </Link>
+            </span>
+        
+        </div>)
+        
+    };
+
     useEffect(() => 
     {
         if(initialCoordinates)
         {   
             setUserCoordinates(initialCoordinates);
             if (onCoordinatesChange) {
-                onCoordinatesChange(initialCoordinates); // Pass initial coordinates back to parent
+                onCoordinatesChange(initialCoordinates); // Passes initial coordinates back to parent
             }
             console.log(initialCoordinates.lat, initialCoordinates.lng);
             setCoordinates(initialCoordinates.lat, initialCoordinates.lng); // store
@@ -40,8 +61,6 @@ const UserLocation: React.FC<UserLocationProps> = ({ mapDimensions, isFloating, 
         }
 
     }, [initialCoordinates])
-
-
 
     const handleLocationClick = () => 
     {
@@ -54,7 +73,6 @@ const UserLocation: React.FC<UserLocationProps> = ({ mapDimensions, isFloating, 
             if (onCoordinatesChange) {
                 onCoordinatesChange(userCoordinates); 
             }
-
 
             setCoordinates(userCoordinates.lat, userCoordinates.lng); // store
             console.log(userCoordinates.lat, userCoordinates.lng);

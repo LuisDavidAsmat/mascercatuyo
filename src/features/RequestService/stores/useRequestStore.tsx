@@ -1,5 +1,5 @@
-
 import { createServiceRequest } from '../../../services/api.service';
+import { useAuthStore } from '../../../stores/auth.store';
 import { ClientRequestService } from '../types/RequestServiceTypes'
 import { create } from 'zustand';
 
@@ -36,17 +36,14 @@ export const useRequestStore = create<RequestState>((set, get) => (
         
         try 
         {
+            
+            const { userBasicInfo } = useAuthStore.getState();
+            
+            if(!userBasicInfo?.userId || !formData) return;
+            
+            formData.userId = userBasicInfo.userId;
+            
             console.log(formData);
-            
-            // const clientId = localStorage.getItem("userId");
-            
-            // if (clientId !== null) {
-            //     formData.solicitanteId = parseInt(clientId);
-            // } else {
-            //     return;
-            // }
-            // console.log('y sc');
-
             const response = await createServiceRequest(formData);
             console.log("Registro exitoso:", response);
 

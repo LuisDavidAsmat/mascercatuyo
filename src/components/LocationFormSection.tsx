@@ -4,10 +4,9 @@ import InfoIcon from "./InfoIcon";
 import Map from "../hooks/Map/Map";
 
 
-
 interface LocationFormSectionProps
 {
-    locationInfo: { lat: number; lng: number } | null; // Define the prop type
+    locationInfo: { lat: number; lng: number } | null;
     userLatitude?: number | null;
     userLongitude?: number | null
 }
@@ -29,7 +28,6 @@ const LocationFormSection: React.FC<LocationFormSectionProps> = ({ locationInfo,
 
                     try 
                     {
-                        
                         const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
                         const data = await response.json();
                         const { city, state, country } = data.address;
@@ -71,7 +69,3 @@ const LocationFormSection: React.FC<LocationFormSectionProps> = ({ locationInfo,
 }
 
 export default LocationFormSection;
-
-
-
-{/* <img src="/img/ubicacion.png" alt="Mapa de ubicación" className="rounded-lg cursor-pointer" /> */}

@@ -26,14 +26,3 @@ function AppRouter() {
   }
   
   export default AppRouter;
-
-
-
-  {/* <Route path="/" element={<Home /> } />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/servicio-solicitar" element={<RequestService/>} />
-          <Route path="/servicio-ofrecer" element={<OfferService />} />
-          <Route path="/servicios/:category" element={<ServicesCatalogue />} />
-          <Route path="/servicios/:category/:servicioId" element={<ServiceDetails />} />
-          <Route path="*" element={<NotFound />}/> */}

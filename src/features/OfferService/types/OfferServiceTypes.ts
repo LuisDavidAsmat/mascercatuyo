@@ -7,6 +7,7 @@ export interface ProviderOffer
   longitude?: number
   status: string,
   cost: number,
+  userId: number
 }
 // export interface ProviderOffer
 // {

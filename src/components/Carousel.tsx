@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 
-const Carousel: React.FC = () => {
-
-    
+const Carousel: React.FC = () => 
+{
   const images = [
     'https://plus.unsplash.com/premium_photo-1664298059861-1560b39fb890?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://plus.unsplash.com/premium_photo-1663045495725-89f23b57cfc5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -37,7 +36,6 @@ const Carousel: React.FC = () => {
         ))}
       </div>
 
-      
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-2 p-2 bg-white rounded-xl">
         {images.map((_, index) => (
           <button

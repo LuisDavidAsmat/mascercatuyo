@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-const FollowRelationships = (props: Props) => {
+const FollowRelationships = () => {
   return (
     <section className="flex gap-8">
         <div className="text-center">

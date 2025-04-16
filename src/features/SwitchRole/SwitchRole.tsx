@@ -20,8 +20,6 @@ const SwitchRole = () =>
     requiredRoles: MCTUserRole[]
   }
 
-  //const fromPath = location.state?.from?.pathname || '/';
-
   const handleSubmit = async (e: React.FormEvent) => 
   {
     e.preventDefault();
@@ -41,10 +39,9 @@ const SwitchRole = () =>
     {
       setIsLoading(true)
       setError(null);
-      // Call your switch role endpoint
+      
       const response = await switchUserRole(newRole!);
       
-      // Update store with fresh data
       setAuth({
         token: response.token,
         refreshToken: response.refreshToken,
@@ -54,9 +51,6 @@ const SwitchRole = () =>
         }
       });
       
-      // Optional: Force refresh all auth data
-      //await refreshAuthState();
-
       if (navigationState?.from) 
       {
         // If coming from AuthLayout redirect
@@ -79,8 +73,6 @@ const SwitchRole = () =>
         // Default fallback
         navigate('/', { replace: true });
       }
-     
-      
     } 
     catch (error) 
     {
@@ -92,12 +84,20 @@ const SwitchRole = () =>
     }
   }
 
-
   return (
-    <main className="flex h-svh justify-center items-center">
-      <form className="bg-white p-4 w-48 text-black" onSubmit={handleSubmit}>
+    <main className="flex flex-col h-svh justify-center items-center text-black bg-white">
+      <h1 className="my-4">
+        Actualmente estas navegando como:{' '}
+        {userBasicInfo?.userRole && (
+            <span className="text-sm my-4">
+              {userBasicInfo.userRole === 'ROLE_CLIENT' ? 'Cliente' : 'Proveedor'}
+            </span>
+          )}
+
+      </h1>
+      <form className="border border-2 rounded-md p-4 w-48 text-black" onSubmit={handleSubmit}>
         <fieldset className=" text-center" >
-          <legend className="">Escoger rol</legend>           
+          <legend className="">Cambiar rol</legend>           
           
           {error && (
             <p className="text-red-500 text-xs mb-2">
@@ -105,14 +105,11 @@ const SwitchRole = () =>
             </p>
           )}
 
-          {userBasicInfo?.userRole && (
-            <p className="text-sm my-4">
-              Current Role: {userBasicInfo.userRole === 'ROLE_CLIENT' ? 'Cliente' : 'Proveedor'}
-            </p>
-          )}
+         
           
           <select 
-            className="mt-6 block w-full mx-auto select select-xs bg-white dark:bg-white" 
+            className="mt-6 block w-full mx-auto select select-xs border border-2 border-gray-200
+            bg-white dark:bg-white" 
             value={newRole}
             onChange={(e) => setNewRole(e.target.value as MCTUserRole)}
             disabled={isLoading}

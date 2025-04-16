@@ -9,7 +9,7 @@ export interface MCTUserLoginInfo
 }
 
 export enum MCTUserRole {
-    ROLE_CLIENT = "ROLE_CLIENT", // Ensure these match localStorage
+    ROLE_CLIENT = "ROLE_CLIENT",
     ROLE_PROVIDER = "ROLE_PROVIDER",
     ROLE_ADMIN = "ROLE_ADMIN",
 }
