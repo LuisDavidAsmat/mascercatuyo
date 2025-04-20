@@ -1,5 +1,4 @@
 import Account from "../features/Account/Account";
-import { MCTUserRole } from "../features/Auth/types/MCTUser";
 import Categories from "../features/Categories/Categories";
 import Home from "../features/Home/Home";
 import Login from "../features/Login/Login";
@@ -9,6 +8,8 @@ import RequestService from "../features/RequestService/RequestService";
 import ServiceDetails from "../features/ServiceDetails/ServiceDetails";
 import ServicesCatalogue from "../features/ServicesCatalogue/ServicesCatalogue";
 import SwitchRole from "../features/SwitchRole/SwitchRole";
+import UserUpdate from "../features/UserUpdate/UserUpdate";
+import { MCTUserRole } from "../types/UserTypes";
 
 
 export interface Category 
@@ -112,7 +113,7 @@ export const PROTECTED_ROUTES = [
   { path: '/servicio/:category', element: ServicesCatalogue , roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] },
   { path: "/servicio/:category/:servicioId", element:ServiceDetails, roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] },
   { path: "/account/:userName", element: Account, roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] },
-  { path: "/account/:userName/update", element: Account, roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] }
+  { path: "/account/:userName/update", element: UserUpdate, roles: [MCTUserRole.ROLE_CLIENT, MCTUserRole.ROLE_PROVIDER] }
 ];
 
 export const getRolesForPath = (path: string): MCTUserRole[] | undefined => 

@@ -1,12 +1,12 @@
-import React from 'react'
-import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { categories } from '../../config/constants';
 import { fetchAllServicesByCategoryAndProximity } from '../../services/api.service';
 import { useCoordinatesStore } from '../../stores/useCoordinatesStore';
 import ServiceCard from './components/ServiceCard';
 import CategoryHeader from './components/CategoryHeader';
 import ShowMoreButton from './components/ShowMoreButton';
+import ThemeSelect from '../../components/ThemeSelect';
 
 
 const ServicesCatalogue = () => 
@@ -36,9 +36,11 @@ const ServicesCatalogue = () =>
             try 
             {
                 let fetchedservices = [];
+            console.log('sdfsd');
             
+
                 if( userLat !== null && userLng !== null)
-                {   console.log('missing');
+                {   console.log('missing', userLat, userLng);
                 
                     fetchedservices = await fetchAllServicesByCategoryAndProximity(category, userLat, userLng, 100);   
                 }
@@ -67,8 +69,12 @@ const ServicesCatalogue = () =>
 
     return (
         
-        <main className="h-svh px-4 sm:px-48 bg-white dark:bg-neutral-900">
+        <main className="h-svh px-4 sm:px-48 bg-white dark:bg-neutral-900 dark:text-white">
+            <div className="absolute top-10 right-10">
+                <ThemeSelect />
+            </div>
             <CategoryHeader categoryLabel={categoryLabel} resultsCounter={services.length}/>  
+            
             <ul className="mt-4 pt-14 pb-28 sm:px-10 grid grid-cols-2 sm:grid-cols-4 gap-y-2 ">
                 {services.length > 0 ?
                     (services.slice(0, visibleCount).map((service, index) => (

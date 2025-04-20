@@ -1,4 +1,3 @@
-import React from 'react'
 import { useOfferStore } from '../../stores/useOfferStore';
 import { useOfferForm } from '../../hooks/useOfferForm';
 import OfferForm from '../OfferForm/OfferForm';

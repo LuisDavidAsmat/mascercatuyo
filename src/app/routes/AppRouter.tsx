@@ -14,7 +14,7 @@ function AppRouter() {
           {PROTECTED_ROUTES.map((route, index) => (
             <Route 
               key={index}
-              element={<AuthLayout allowedRoles={route.roles}/>}
+              element={<AuthLayout />}
             >
               <Route path={route.path} element={<route.element />} />
             </Route>

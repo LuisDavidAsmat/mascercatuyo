@@ -9,6 +9,8 @@ interface ServiceCardProps
       id: number;
       category: string;
       description: string;
+      city: string;
+      state: string;
     };
     currentCategory: string | undefined;
 }
@@ -34,7 +36,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, currentCategory }) =
             <Link to={`/servicio/${currentCategory}/${service.id}`} className="mt-4 text-lg underline font-semibold sm:text-md"> {service.description} 
             </Link>
         </h2>
-        <span className="text-md sm:text-xs">Comuna, región</span>
+        <span className="text-md sm:text-xs">{service.city}, {service.state}</span>
     </div>
   )
 }

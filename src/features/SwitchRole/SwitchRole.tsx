@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { switchUserRole } from "../../services/api.service"
 import { useAuthStore } from "../../stores/auth.store"
-import { MCTUserRole } from "../Auth/types/MCTUser";
 import { useLocation, useNavigate } from "react-router";
+import { MCTUserRole } from "../../types/UserTypes";
 
 
 const SwitchRole = () => 
@@ -26,12 +26,12 @@ const SwitchRole = () =>
     console.log(newRole);
 
     if (!newRole) {
-      setError('Por favor selecciona un rol');
+      setError('Por favor selecciona un rol.');
       return;
     }
 
     if (newRole === userBasicInfo?.userRole) {
-      setError('Ya tienes este rol seleccionado');
+      setError('Ya cuentas con este rol.');
       return;
     }
     
@@ -70,7 +70,7 @@ const SwitchRole = () =>
         }
       } 
       else {
-        // Default fallback
+        // Default
         navigate('/', { replace: true });
       }
     } 
@@ -85,46 +85,56 @@ const SwitchRole = () =>
   }
 
   return (
-    <main className="flex flex-col h-svh justify-center items-center text-black bg-white">
-      <h1 className="my-4">
-        Actualmente estas navegando como:{' '}
-        {userBasicInfo?.userRole && (
-            <span className="text-sm my-4">
-              {userBasicInfo.userRole === 'ROLE_CLIENT' ? 'Cliente' : 'Proveedor'}
-            </span>
-          )}
+    <main className="flex flex-col h-svh justify-center items-center space-y-6
+    text-black bg-white inverse-gradient-background text-white 
+    
+    ">
+      <h1 className="text-3xl font-bold">Cambiar Rol</h1>
+      
+      <form className="border border-2 rounded-md p-4 w-full max-w-xs text-black bg-white" onSubmit={handleSubmit}>
+        <fieldset className=" text-center " >
+          <legend className="sr-only">Cambiar rol</legend>     
+          <h2 className="my-4">
+            Actualmente estas navegando como:{' '}
+            {userBasicInfo?.userRole && (
+                <span className="text-sm my-4">
+                  {userBasicInfo.userRole === 'ROLE_CLIENT' ? 'Cliente' : 'Proveedor'}
+                </span>
+              )}
 
-      </h1>
-      <form className="border border-2 rounded-md p-4 w-48 text-black" onSubmit={handleSubmit}>
-        <fieldset className=" text-center" >
-          <legend className="">Cambiar rol</legend>           
+          </h2>      
           
           {error && (
-            <p className="text-red-500 text-xs mb-2">
+            <p className="text-red-500 text-sm mb-4">
               {error}
             </p>
-          )}
-
-         
+          )}        
           
           <select 
-            className="mt-6 block w-full mx-auto select select-xs border border-2 border-gray-200
+            className=" block w-full mx-auto select select-sm border border-2 border-gray-200 focus:outline-none 
             bg-white dark:bg-white" 
             value={newRole}
             onChange={(e) => setNewRole(e.target.value as MCTUserRole)}
             disabled={isLoading}
           >
-              <option value="">Selecciona un rol</option>
+              <option value="">Selecciona el nuevo rol</option>
               <option value="ROLE_CLIENT">Cliente</option>
               <option value="ROLE_PROVIDER">Proveedor</option>
           </select>
 
-          <button className="mt-16 border p-2" 
+          <a href="/" className="btn bg-stone-300 hover:bg-stone-400 rounded-lg border border-emerald-950 text-gray-700"  
+          type="submit"
+          
+          >
+            Regresar
+          </a>
+          <button className="ml-4 mt-16 p-2 border btn bg-buttons hover:bg-btn-hover focus:bg-orange-400 rounded-lg border border-emerald-950 text-gray-700"  
           type="submit"
           disabled={isLoading || !newRole}
           >
             {isLoading ? 'Cambiando...' : 'Cambiar rol'}
           </button>
+          
         </fieldset>
       </form>
     </main>

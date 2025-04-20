@@ -10,7 +10,7 @@ const OfferService = () =>
   return(
     <main className={`px-4 sm:px-20 bg-white text-black dark:bg-neutral-800 dark:text-white ${showOfferPreview? 'h-screen overflow-hidden': ''} `}>
       <RequestHeader title='Publicar Prestación de Servicio'/>  
-      <OfferFlow/>
+      <OfferFlow />
       
     </main>
   )

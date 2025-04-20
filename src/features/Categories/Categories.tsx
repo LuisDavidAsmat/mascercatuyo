@@ -1,5 +1,5 @@
 import { categories } from "../../config/constants";
-import './Categories.css';
+
 
 const Categories = () => 
 {

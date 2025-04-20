@@ -11,7 +11,7 @@ const ConfirmationModal: React.FC<
     declineText: string;
 }> = ({ show, onConfirm, onCancel, title, message,  acceptText, declineText, onClickXSvg }) => (
     <dialog className={`modal ${show ? "modal-open" : ""} dark:bg-white`}>
-        <div className="modal-box max-w-xs bg-white dark:bg-white">
+        <div className="modal-box max-w-xs bg-white text-black dark:bg-white">
             <svg
                 className="float-right h-7 w-7 stroke-black bg-transparent cursor-pointer fill-none"
                 viewBox="0 0 24 24"

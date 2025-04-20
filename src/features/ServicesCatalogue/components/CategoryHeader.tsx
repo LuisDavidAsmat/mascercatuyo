@@ -12,7 +12,11 @@ export const CategoryHeader: React.FC<CategoryHeaderProps> = ({ categoryLabel, r
         <h1 className="text-center uppercase pt-8 font-bold text-2xl text-black dark:text-white">
             {categoryLabel}
         </h1>
-        <h2 className="w-5/6 inline-flex bg-red-500 border-t bg-gradient-to-b from-gray-50 to-gray-50 py-2 px-2 text-left text-xl text-black">
+        <h2 className="w-5/6 inline-flex py-2 px-2 
+        border-t bg-gradient-to-b from-gray-100 to-gray-50 rounded-sm
+        text-left text-xl text-black 
+        dark:bg-gradient-to-b dark:from-neutral-700 dark:to-neutral-600 dark:text-white
+        ">
             {resultsCounter} resultados
         </h2>
         <Link

@@ -1,4 +1,3 @@
-import './Main.css'
 import NavBar from './components/NavBar'
 import Testimonials from './components/Testimonials/Testimonials';
 import TopProvider from './components/TopProvider/TopProvider'

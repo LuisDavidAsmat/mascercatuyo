@@ -1,13 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { MCTUserRole } from "../features/Auth/types/MCTUser";
+import { MCTUserBasicInfo, MCTUserRole } from "../types/UserTypes";
 
-export interface MCTUserBasicInfo {
-  userId: number;
-  username: string;
-  email: string;
-  userRole: MCTUserRole;
-}
+
 
 interface AuthState {
   token: string | null;

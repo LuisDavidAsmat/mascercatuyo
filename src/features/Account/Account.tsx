@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useAuthStore } from '../../stores/auth.store';
 import {  fetchUserDetails } from '../../services/api.service';
+import ProfileDetails from './components/ProfileDetails';
+import ProfileTabs from './components/ProfileTabs';
 
 
 interface UserDetails 
@@ -10,6 +12,7 @@ interface UserDetails
     username: string;
     email: string;
     birthDate: string;
+    createdAt: string;
 }
 
 const Account = () => 
@@ -56,19 +59,9 @@ const Account = () =>
     
 
   return (
-    <div>
-      <h1>Account Details</h1>
-      {userDetails ? (
-        <div>
-          <p>Name: {userDetails.name} {userDetails.surname}</p>
-          <p>Username: {userDetails.username}</p>
-          <p>Email: {userDetails.email}</p>
-          <p>Birth Date: {userDetails.birthDate}</p>
-        </div>
-      ) : (
-        <p>No user details available</p>
-      )}
-      <a href={`/account/${userDetails?.username}/update`}>Update user</a>
+    <div className='h-svh flex bg-white text-black dark:text-white'>
+      <ProfileDetails userDetails={userDetails}/>
+      <ProfileTabs />      
     </div>
   )
 }

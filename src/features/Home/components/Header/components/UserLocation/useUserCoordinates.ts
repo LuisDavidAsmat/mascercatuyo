@@ -23,6 +23,7 @@ const useUserCoordinates = (userCoordinates: { lat: number; lng: number } | null
             const address = data.address;
 
             let locationName = address.city || address.town || address.suburb || address.village || address.hamlet || "Unknown Location"; 
+            //const region = address.region || "Unknown Region";
             const state = address.state || "Unknown State";
             const country = address.country || "Unknown Country";
     

@@ -1,11 +1,8 @@
-export interface MCTUserLoginInfo 
-{
-    id: number;
-    email: string;
+export interface MCTUserBasicInfo {
+    userId: number;
     username: string;
-    token: string;
-    roles: MCTUserRole[];
-    activeRole: MCTUserRole;
+    email: string;
+    userRole: MCTUserRole;
 }
 
 export enum MCTUserRole {

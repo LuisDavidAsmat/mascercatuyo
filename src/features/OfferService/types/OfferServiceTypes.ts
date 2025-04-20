@@ -5,6 +5,8 @@ export interface ProviderOffer
   duration: string,
   latitude?: number,
   longitude?: number
+  city: string,
+  state: string,
   status: string,
   cost: number,
   userId: number

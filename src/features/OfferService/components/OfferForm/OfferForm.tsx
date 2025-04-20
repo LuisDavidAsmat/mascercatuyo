@@ -7,6 +7,8 @@ import { ProviderOffer } from '../../types/OfferServiceTypes';
 import { categories, estados, tiempos } from '../../../../config/constants';
 import UserLocation from '../../../Home/components/Header/components/UserLocation/UserLocation';
 import { useState } from 'react';
+import useUserCoordinates from '../../../Home/components/Header/components/UserLocation/useUserCoordinates';
+import { useConsentStore } from '../../../Home/stores/useConsentStore';
 
 type OfferFormProps = 
 {
@@ -30,11 +32,21 @@ const OfferForm = ({
     setCoordinates(newCoordinates);
   };
 
+  const { hasConsent } = useConsentStore.getState();
+  const { locationInfo } = useUserCoordinates(coordinates, hasConsent);  
+
   const handleFormSubmit = ( data : ProviderOffer ) => 
   {
     if (coordinates) {
       data.latitude = coordinates.lat;
       data.longitude = coordinates.lng;
+
+      const locationDetails = locationInfo.split(',').map(detail => detail.trim());
+
+      data.city = locationDetails[0] || 'Ciudad desconocida';
+      data.state = locationDetails[1] || 'Estado desconocido';
+
+   
     }
     onSubmit(data);
   }
