@@ -4,23 +4,43 @@ import { useAuthStore } from "../../../stores/auth.store";
 
 export const createServiceRequest = async (serviceData: any) => 
 {
+  try 
+  {
+    const { token } = useAuthStore.getState();
+      const response = await axios.post(
+      `${API_BASE_URL}/v1/services/request`, 
+      serviceData,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error creating service request:", error);
+    throw new Error("No se pudo crear la solicitud de servicio");
+  }
+};
+
+export const uploadProfileImage = async (formData: FormData, userId: number) => 
+  {
     try 
     {
       const { token } = useAuthStore.getState();
-  
       const response = await axios.post(
-        `${API_BASE_URL}/v1/services/request`, 
-        serviceData,
+        `${API_BASE_URL}/v1/user/img/${userId}/avatar`, 
+        formData,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
           }
         }
       );
       return response.data;
     } catch (error) {
-      console.error("Error creating service request:", error);
-      throw new Error("No se pudo crear la solicitud de servicio");
+      console.error("Error uploading profile image:", error);
+      throw error;
     }
   };

@@ -1,10 +1,18 @@
-import React from 'react'
+import ChatMain from './components/ChatMain'
+import ChatSidebar from './components/ChatSidebar'
+import UserMessagesHeader from './components/UserMessagesHeader'
 
-type Props = {}
 
-const UserMessages = (props: Props) => {
+const UserMessages = () => 
+{
   return (
-    <div>UserMessages</div>
+    <>
+      <UserMessagesHeader />
+      <main className='mt-4 flex border-[.09rem] rounded-xl'>
+        <ChatSidebar />
+        <ChatMain />
+      </main>
+    </>
   )
 }
 

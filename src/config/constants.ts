@@ -16,15 +16,16 @@ export interface Category
 {
   value: string;
   label: string;
+  icon?: string;
 }
 
 export const categories: Category[] = 
 [
-  { value: 'actividadFisica', label: 'Actividad física' },
-  { value: 'alimentacion', label: 'Alimentación' },
+  { value: 'actividadFisica', label: 'Actividad física', icon: '🏋️' },
+  { value: 'alimentacion', label: 'Alimentación', icon: '🍽️' },
   { value: 'asesoriaDelHogar', label: 'Asesora del hogar' },
   { value: 'bellezaYEstetica', label: 'Belleza y estética' },
-  { value: 'cerrajero', label: 'Cerrajero' },
+  { value: 'cerrajero', label: 'Cerrajero', icon: '🔐' },
   { value: 'construccion', label: 'Construcción' },
   { value: 'cuidadoresDeAdultosMayores', label: 'Cuidadores de adultos mayores' },
   { value: 'cuidadoresDeNinos', label: 'Cuidadores de niños(as)' },
@@ -34,13 +35,13 @@ export const categories: Category[] =
   { value: 'eventos', label: 'Eventos' },
   { value: 'instalacionDeSistemasDeSeguridad', label: 'Instalación de sistemas de seguridad' },
   { value: 'instalacionDeArtefactosDomesticos', label: 'Instalación de artefactos domésticos' },
-  { value: 'jardineria', label: 'Jardinería' },
+  { value: 'jardineria', label: 'Jardinería', icon: '🪴' },
   { value: 'limpiezaYAseo', label: 'Limpieza y aseo' },
   { value: 'mascotas', label: 'Mascotas' },
   { value: 'mudanzaOFletes', label: 'Mudanza o fletes' },
   { value: 'pintura', label: 'Pintura' },
   { value: 'plomeria', label: 'Plomería'},
-  { value: 'mecanica', label: 'Mecánica'},
+  { value: 'mecanica', label: 'Mecánica', icon: "🔧"},
   { value: 'reparaciones', label: 'Reparaciones'},
   { value: 'carpinteria', label: 'Carpintería' },
   { value: 'reparacionDeElectrodomesticos', label: 'Reparaciones de electrodomésticos' },

@@ -2,6 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { updateSchema } from './schema/UpdateSchema'
+import { useAuthStore } from '../../stores/auth.store'
+import { uploadProfileImage } from './api/userupdate.api'
+import ProviderOfferImages from './components/ProviderOfferImages'
 
 type FormValues = {
   profileImage: FileList
@@ -9,7 +12,9 @@ type FormValues = {
 
 const UserUpdate = () => 
 {
-  const [preview, setPreview] = useState<string | null>(null)
+  const { userBasicInfo } = useAuthStore.getState();
+  const [preview, setPreview] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -20,12 +25,33 @@ const UserUpdate = () =>
     resolver: yupResolver(updateSchema)
   })
 
-  const onSubmit = (data: FormValues) => 
+  const onSubmit = async (data: FormValues) => 
   {
-      const file = data.profileImage[0];
+    const file = data.profileImage[0];
+    const userId = userBasicInfo?.userId;
 
-      console.log('selected file', file);
+    console.log('selected file', file);
+
+    if(!userId) return;
+
+    setIsSubmitting(true);
+
+    try 
+    {
+      const formData = new FormData();
+
+      formData.append('file', file); // Must match @RequestParam name in backend
+
+      await uploadProfileImage(formData, userId);
+
+      console.log('Upload successful!');
       
+    } catch (error) {
+      console.error('Upload failed:', error);
+    }
+    finally {
+      setIsSubmitting(false);
+    }      
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => 
@@ -39,9 +65,11 @@ const UserUpdate = () =>
 
 
   return (
+    <>
     <form
       onSubmit={handleSubmit(onSubmit)}
       className='space-y-4 p-4 bg-white rounded shadow-md max-w-md'
+      encType="multipart/form-data"
     >
       <h2 className="text-xl font-semibold">Update Profile Image</h2>
       <div className="">
@@ -69,9 +97,24 @@ const UserUpdate = () =>
         </div>
       )}
 
-      <button type="submit" className='btn bg-buttons'>Upload</button>
+      {/* <button type="submit" className='btn bg-buttons'>Upload</button> */}
+      <button 
+        type="submit" 
+        className='btn bg-buttons'
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Uploading...' : 'Upload'}
+      </button>
 
     </form>
+
+    <ProviderOfferImages />
+
+    </>
+
+
+
+    
   )
 }
 

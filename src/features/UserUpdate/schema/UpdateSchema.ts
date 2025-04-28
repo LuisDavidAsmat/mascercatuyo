@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-type FileValue = FileList | null | undefined;
+
 
 const isFileList = (value: unknown): value is FileList => {
     return value instanceof FileList

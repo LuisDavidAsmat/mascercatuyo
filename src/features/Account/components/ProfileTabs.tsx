@@ -22,8 +22,8 @@ const ProfileTabs = () =>
 
     const CurrentTab = tabContents[activeTabIndex]
   return (
-    <div className="basis-5/6 px-4 py-3">
-        <div role="tablist" className="tabs tabs-boxed bg-white rounded-none ">
+    <div className="basis-5/6 px-4 py-3 ">
+        <div role="tablist" className="tabs tabs-boxed bg-gray-100 rounded-none ">
             {tabsTitles.map((tab, index) => (
                 <a 
                     key={index}
@@ -42,7 +42,7 @@ const ProfileTabs = () =>
             ))}
         </div>
 
-        <div className="p-4 border bg-base-200 bg-white">
+        <div className="p-4 bg-base-200 bg-white">
             <CurrentTab />
         </div>
     </div>

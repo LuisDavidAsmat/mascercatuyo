@@ -24,7 +24,7 @@ const ConfirmationModal: React.FC<
             <h3 className="mt-8 font-bold text-lg">{title}</h3>
             <p className="py-4">{message}</p>
             <div className="modal-action flex justify-center">
-                <button className="btn bg-buttons hover:bg-btn-hover focus:bg-orange-400 rounded-lg border border-emerald-950 text-gray-700" onClick={onConfirm}>
+                <button className="btn bg-buttons hover:bg-btn-hover active:bg-orange-400 rounded-lg border border-emerald-950 text-gray-700" onClick={onConfirm}>
                     {acceptText}                
                 </button>
                 <button className="btn bg-stone-300 hover:bg-stone-400 rounded-lg border border-emerald-950 text-gray-700" onClick={onCancel}>

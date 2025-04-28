@@ -59,7 +59,7 @@ const Account = () =>
     
 
   return (
-    <div className='h-svh flex bg-white text-black dark:text-white'>
+    <div className='min-h-screen flex bg-white text-black dark:text-white'>
       <ProfileDetails userDetails={userDetails}/>
       <ProfileTabs />      
     </div>
