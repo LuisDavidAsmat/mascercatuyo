@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MCTUserBasicInfo, MCTUserRole } from "../../../types/UserTypes";
 import { LoginFormData } from "../types/LoginFormData";
-import { API_BASE_URL } from "../../../config/api";
+import apiClient from "../../../services/apiClient";
 
 
 export const loginUser = async (loginRequest: LoginFormData): Promise<
@@ -13,7 +13,7 @@ export const loginUser = async (loginRequest: LoginFormData): Promise<
   {
     try 
     {
-      const response = await axios.post<{
+      const response = await apiClient.post<{
         token: string;
         refreshToken: string;
         userId: number;
@@ -21,14 +21,8 @@ export const loginUser = async (loginRequest: LoginFormData): Promise<
         email: string;
         userRole: MCTUserRole;
       }>(
-        `${API_BASE_URL}/v1/login`, 
+        `/login`, 
         loginRequest,
-        {
-          headers: 
-          {
-            'Content-Type': 'application/json',
-          },
-        }
       );
   
       const userBasicInfo: MCTUserBasicInfo = 
@@ -39,18 +33,10 @@ export const loginUser = async (loginRequest: LoginFormData): Promise<
         userRole: response.data.userRole
       }
   
-      // if (response.data.token) 
-      // {
-      //   axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-      //   localStorage.setItem('token', response.data.token);
-      // }
-  
-      //return response.data;
       return {
         token: response.data.token,
         refreshToken: response.data.refreshToken,
         userBasicInfo
-        
       }
     } 
     catch (error) 

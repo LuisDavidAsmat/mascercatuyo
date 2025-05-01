@@ -33,13 +33,12 @@ const MapPopup: FC<MapPopupProps> = ({ coordinates, onClose, onCoordinatesChange
             </>            
         ) : ('')}
 
-        
-
         <UserLocationMap 
             location={coordinates} 
             zoom={15}
             onMarkerDragEnd={onCoordinatesChange}
             mapDimensions={mapDimensions}
+            isMarkerDraggable={true}
         />
     </div>
   )

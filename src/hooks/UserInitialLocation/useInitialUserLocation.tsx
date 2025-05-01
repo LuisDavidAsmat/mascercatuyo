@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 
 
-const useGeoLocation = () => 
+const useInitialUserLocation  = () =>
 {
-    const [userCoordinates, setUserCoordinates] = useState<{ lat: number; lng: number} | null>(null);
+    const [userInitialCoordinates, setUserInitialCoordinates] = useState<{ lat: number; lng: number} | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => 
@@ -13,7 +13,7 @@ const useGeoLocation = () =>
             navigator.geolocation.getCurrentPosition(
                 (position) => 
                 {
-                    setUserCoordinates(
+                    setUserInitialCoordinates(
                     {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
@@ -31,6 +31,6 @@ const useGeoLocation = () =>
         }
     }, [])
 
-    return { userCoordinates, error }
+    return { userInitialCoordinates, error }
 }
-export default useGeoLocation;
+export default useInitialUserLocation ;

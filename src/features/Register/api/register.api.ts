@@ -6,7 +6,7 @@ export const registerUser = async (userData: RegisterUserDto) =>
 {
   try 
   {
-    const response = await axios.post(`${API_BASE_URL}/v1/register`, userData);
+    const response = await axios.post(`${API_BASE_URL}/register`, userData);
     return response.data;
   } 
   catch (error) 

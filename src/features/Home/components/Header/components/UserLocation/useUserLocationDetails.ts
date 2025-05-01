@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 
-const useUserCoordinates = (userCoordinates: { lat: number; lng: number } | null, hasConsent: boolean) => 
+const useUserLocationDetails  = (userCoordinates: { lat: number; lng: number } | null, hasConsent: boolean) => 
 {
     const [locationInfo, setLocationInfo] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,7 @@ const useUserCoordinates = (userCoordinates: { lat: number; lng: number } | null
             const data = await response.json();
             const address = data.address;
 
-            let locationName = address.city || address.town || address.suburb || address.village || address.hamlet || "Unknown Location"; 
+            let locationName = address.city || address.town || address.suburb || address.village || address.hamlet || address.state_district || address.municipality || "Unknown Location"; 
             //const region = address.region || "Unknown Region";
             const state = address.state || "Unknown State";
             const country = address.country || "Unknown Country";
@@ -53,5 +53,5 @@ const useUserCoordinates = (userCoordinates: { lat: number; lng: number } | null
     return { locationInfo, isLoading, error, fetchLocationDetails };
 }
     
-export default useUserCoordinates
+export default useUserLocationDetails 
 

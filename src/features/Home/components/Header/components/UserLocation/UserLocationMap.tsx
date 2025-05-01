@@ -9,6 +9,7 @@ interface MapProps
     zoom?: number;
     onMarkerDragEnd?: (newLocation: { lat: number; lng: number }) => void;
     mapDimensions: string;
+    isMarkerDraggable?: boolean; 
 }
 
 const mapContainerStyle = {
@@ -26,7 +27,8 @@ const center =
 const libraries: ("marker")[] = ["marker"];
 
 
-const UserLocationMap = ({ location, zoom = 10, onMarkerDragEnd, mapDimensions }: MapProps) => 
+const UserLocationMap = ({ location, zoom = 10, onMarkerDragEnd, mapDimensions, isMarkerDraggable
+ }: MapProps) => 
 {
     const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
    
@@ -93,7 +95,7 @@ const UserLocationMap = ({ location, zoom = 10, onMarkerDragEnd, mapDimensions }
                         position: location,
                         content: markerContent,
                         title: "Custom Marker",
-                        gmpDraggable: true,
+                        gmpDraggable: isMarkerDraggable ?? false,
                     });
 
                      // Add event listener for marker drag end

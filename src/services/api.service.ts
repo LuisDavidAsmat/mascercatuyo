@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { LoginResponse } from '../features/Login/types/LoginFormData';
 import { useAuthStore } from '../stores/auth.store';
+import apiClient from './apiClient';
 
 const API_KEY_IMG = import.meta.env.VITE_API_KEY_IMG;
 const API_BASE_URL = import.meta.env.VITE_API_URL;
@@ -97,65 +98,57 @@ export const uploadPhoto = async (file: File): Promise<string> => {
   }
 };
 
+
 export const fetchAllServicesByCategoryAndProximity = async (
   category: string,
   userLat: number,
   userLng: number,
   radius: number
 ) => 
-
 {
   try 
   {
-    const { token } = useAuthStore.getState();
-
-    const response = await axios.get<any[]>(
-      `${API_BASE_URL}/v1/services/offer/all-nearby/${category}`,
+    const response = await apiClient.get<any[]>(
+      `/services/offer/all-nearby/${category}`,
       {
         params: {
           userLat,
           userLng,
           radius,
         },
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
       }
     ); 
 
     return response.data;
   } 
-  catch (error) 
-  {
-    console.error('Error fetching services', error);
-    throw new Error('Error fetching services');
+  catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('API Error:', error.response?.data?.message || error.message);
+      throw new Error(error.response?.data?.message || 'Error fetching services');
+    }
+    console.error('Unexpected error:', error);
+    throw new Error('Unexpected error occurred');
   }
 }
-
 
 export const fetchUserDetails = async (email: string | undefined) =>
 {
   try 
   {
-    const { token } = useAuthStore.getState();
 
-    const response = await axios.get(
-      `${API_BASE_URL}/v1/user/details`, 
+    const response = await apiClient.get(
+      `/user/details`, 
      
       {
         params: { email, },
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
       }
     );
     return response.data;
-  } catch (error) 
+  } 
+  catch (error) 
   {
     console.error("Error fetching user details:", error);
 
-    // Provide a more specific error message
     if (axios.isAxiosError(error)) 
     {
       throw new Error(
@@ -166,11 +159,36 @@ export const fetchUserDetails = async (email: string | undefined) =>
   }
 }
 
+// export const fetchUserDetails = async (email: string | undefined) =>
+// {
+//   try 
+//   {
+//     const { token } = useAuthStore.getState();
 
+//     const response = await axios.get(
+//       `${API_BASE_URL}/user/details`, 
+     
+//       {
+//         params: { email, },
+//         headers: {
+//           'Authorization': `Bearer ${token}`,
+//         }
+//       }
+//     );
+//     return response.data;
+//   } catch (error) 
+//   {
+//     console.error("Error fetching user details:", error);
 
-
-
-
+//     if (axios.isAxiosError(error)) 
+//     {
+//       throw new Error(
+//         error.response?.data?.message || "Failed to fetch user details"
+//       );
+//     }
+//     throw new Error("An unexpected error occurred");
+//   }
+// }
 
 
 

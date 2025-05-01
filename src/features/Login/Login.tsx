@@ -1,10 +1,19 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import LoginForm from "./components/LoginForm";
 
 const Login = () => 
 {
+  const location = useLocation();
+  const expired = new URLSearchParams(location.search).get("expired");
+
+
   return (
     <div className="h-svh flex flex-col justify-center items-center bg-white text-black rounded-lg ">
+      {expired && (
+        <p style={{ color: "red", fontWeight: "bold" }}>
+          Your session has expired. Please log in again.
+        </p>
+      )}
       <section className="flex justify-between w-4/12">
         <Link
           to="/"

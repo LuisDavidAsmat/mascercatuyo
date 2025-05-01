@@ -7,7 +7,7 @@ import { ProviderOffer } from '../../types/OfferServiceTypes';
 import { categories, estados, tiempos } from '../../../../config/constants';
 import UserLocation from '../../../Home/components/Header/components/UserLocation/UserLocation';
 import { useState } from 'react';
-import useUserCoordinates from '../../../Home/components/Header/components/UserLocation/useUserCoordinates';
+import useUserCoordinates from '../../../Home/components/Header/components/UserLocation/useUserLocationDetails';
 import { useConsentStore } from '../../../Home/stores/useConsentStore';
 
 type OfferFormProps = 

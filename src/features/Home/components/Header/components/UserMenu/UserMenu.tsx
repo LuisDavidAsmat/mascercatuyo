@@ -3,12 +3,13 @@ import FloatingMenu from "../FloatingMenu/FloatingMenu";
 import { useAuthStore } from "../../../../../../stores/auth.store";
 import { useNavigate } from "react-router";
 import { useConsentStore } from "../../../../stores/useConsentStore";
+import ImgHolder from "../../../../../../components/ImgHolder";
 
 
 const UserMenu = () => 
 {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
-    const { userBasicInfo, isAuthenticated, clearAuth } = useAuthStore();
+    const { userBasicInfo, isSessionValid , clearAuth } = useAuthStore();
     const { setHasConsent } = useConsentStore();
     const navigate = useNavigate(); 
 
@@ -20,7 +21,7 @@ const UserMenu = () =>
     {
         const baseOptions = [];
 
-        if(isAuthenticated())
+        if(isSessionValid )
         {
             baseOptions.push(
                 { 
@@ -71,7 +72,7 @@ const UserMenu = () =>
                 <div className="flex flex-col items-start text-sm" >
                     <h3 className="text-xs">¡Hola!</h3>
                     <p className="underline font-semibold">
-                        {isAuthenticated()? userBasicInfo?.username : 'Invitado' }
+                        {isSessionValid ? userBasicInfo?.username : 'Invitado' }
                     </p>
                 </div>                
             </div>

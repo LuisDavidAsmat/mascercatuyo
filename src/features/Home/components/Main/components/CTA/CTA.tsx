@@ -16,10 +16,14 @@ const CTA = () =>
   const [ modalVisible, setModalVisible] = useState(false);
   const [pendingPath, setPendingPath] = useState<string | null>(null);
 
-  const handleAccess = ( targetPath: string )=> 
+
+  const handleAccess = async ( targetPath: string )=> 
   {
-    if(!isAuthenticated())
+    const isAuth = await isAuthenticated();
+
+    if(!isAuth)
     {
+      
       navigate("/login");
       return;
     }

@@ -41,7 +41,8 @@ export const LoginForm: React.FC = ({ onSuccess, onError }: LoginFormProps) =>
       {
           token,
           refreshToken,
-          userBasicInfo        
+          userBasicInfo,
+          
       });
 
       switch(userBasicInfo.userRole) 

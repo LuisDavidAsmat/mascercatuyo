@@ -25,7 +25,8 @@ const ServicesCatalogue = () =>
     }
 
     useEffect(() => {
-        const fetchServices = async () => {
+        const fetchServices = async () => 
+        {
             setIsLoading(true);
     
             if (!category) {
@@ -35,13 +36,9 @@ const ServicesCatalogue = () =>
     
             try 
             {
-                let fetchedservices = [];
-            console.log('sdfsd');
-            
+                let fetchedservices = [];            
 
-                if( userLat !== null && userLng !== null)
-                {   console.log('missing', userLat, userLng);
-                
+                if( userLat !== null && userLng !== null){                  
                     fetchedservices = await fetchAllServicesByCategoryAndProximity(category, userLat, userLng, 100);   
                 }
 
@@ -75,7 +72,7 @@ const ServicesCatalogue = () =>
             </div>
             <CategoryHeader categoryLabel={categoryLabel} resultsCounter={services.length}/>  
             
-            <ul className="mt-4 pt-14 pb-28 sm:px-10 grid grid-cols-2 sm:grid-cols-4 gap-y-2 ">
+            <ul className="mt-4 pt-14 pb-28 sm:px-10 grid grid-cols-2 sm:grid-cols-4 gap-y-2 gap-x-6 ">
                 {services.length > 0 ?
                     (services.slice(0, visibleCount).map((service, index) => (
                         <li key={index}>
