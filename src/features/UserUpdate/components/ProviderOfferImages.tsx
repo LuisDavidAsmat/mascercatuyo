@@ -2,16 +2,19 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { multipleImgSchema } from '../schema/MultipleImgSchema'
+import { useAuthStore } from '../../../stores/auth.store'
+import { uploadServiceImages } from '../api/userupdate.api'
 
 type FormValues = {
     images: FileList
-  }
+}
 
 
 const ProviderOfferImages = () => 
 {
     const [previews, setPreviews] = useState<string[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { userBasicInfo } = useAuthStore.getState();
 
     const {
         register,
@@ -49,7 +52,16 @@ const ProviderOfferImages = () =>
                 formData.append('files', file);
             });
 
-            console.log('Service images uploaded successfully!')
+
+            if (!userBasicInfo?.userId) {
+                throw new Error("User ID not available");
+            }
+
+            const userId = userBasicInfo?.userId;
+
+            const response = await uploadServiceImages(formData, userId);
+
+            console.log('Service images uploaded successfully!', response)
         } 
         catch (error) {
             console.error('Error uploading service images:', error)

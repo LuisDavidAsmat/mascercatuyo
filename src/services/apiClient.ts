@@ -41,12 +41,12 @@ apiClient.interceptors.response.use(
         {
           console.error('API Error:', error.response.status, error.response.data);
 
-          if (error.response.status === 401) {
-            window.location.href = "/login?expired=true";
-          }
-          else if   (error.response.status === 403) {
-            window.location.href = "/login?expired=true";
-          }   
+          // if (error.response.status === 401) {
+          //   window.location.href = "/login?expired=true";
+          // }
+          // else if   (error.response.status === 403) {
+          //   window.location.href = "/login?expired=true";
+          // }   
         } 
         else {
           console.error('Network/Request Error:', error.message);

@@ -1,24 +1,124 @@
+import { useEffect, useState } from "react";
+import apiClient from "../services/apiClient";
+import { useAuthStore } from "../stores/auth.store";
+import Carousel from "./Carousel";
+
 interface UserProfileInfoProps 
 {
-    userName: string;
     rating: number;
     showContactButtons: boolean;
 }
 
-const UserProfileInfo: React.FC<UserProfileInfoProps> = ({ userName, rating, showContactButtons }) => 
+interface MCTUserDetails 
 {
-    const stars = Array.from({ length: 5 }, (_, index) => (
-      <span key={index} className={index < rating ? 'text-orange-600' : 'text-orange-600 font-semibold'}>
-          { index < rating ? '★' : '☆'}
-      </span>
-    ));
+  name: string;
+  surname: string;
+  username: string;
+  email: string;
+  birthDate: string; 
+  createdAt: string; 
+}
 
-    return (        
+const UserProfileInfo: React.FC<UserProfileInfoProps> = ({ rating, showContactButtons }) => 
+{
+
+  const [userDetails, setUserDetails] = useState<MCTUserDetails | null>(null);
+  const { userBasicInfo } = useAuthStore();
+
+  const [avatarUrl, setAvatarUrl] = useState("")
+  useEffect(() => 
+  {
+    const fetchUserAvatar = async () => 
+    {
+      try 
+      {
+        const keyResponse = await apiClient.get(
+          `/user/img/${userBasicInfo?.userId}/profile-image-key`
+        );
+        
+        
+        if (keyResponse.data) {
+          // 2. Get presigned URL if key exists
+          const urlResponse = await apiClient.get("/user/img/url", {
+              params: { key: keyResponse.data },
+          });
+          setAvatarUrl(urlResponse.data);
+        }
+          
+      } 
+      catch (error) 
+      {
+        console.error("Error loading avatar:", error);
+        throw new Error("Unable to obtain user profile image.")
+      
+      }
+    }
+      fetchUserAvatar();
+  
+  }, [userBasicInfo?.userId])
+
+  useEffect(() => 
+  {
+    const fetchUserDetails  = async () => {
+      try 
+      {
+        const response = await apiClient.get<MCTUserDetails>(`/user/details`, 
+          {
+            params:
+            {
+              email: userBasicInfo?.email
+            }
+          }
+        );
+
+        setUserDetails(response.data); 
+      } 
+      catch (error) 
+      {
+        console.error('Error fetching user details:', error);
+        throw new Error("Unable to obtain user details.")
+      }
+    }
+
+    fetchUserDetails();
+
+  }, [])
+
+
+  const stars = Array.from({ length: 5 }, (_, index) => (
+    <span key={index} className={index < rating ? 'text-orange-600' : 'text-orange-600 font-semibold'}>
+        { index < rating ? '★' : '☆'}
+    </span>
+  ));
+
+  return (
+    <>
+      <Carousel/>
       <section className='py-4 px-6 flex justify-between items-center gap-2 border-b border-gray-300 dark:border-white'>
-        <section className='flex gap-2'>
-          <svg className='w-10 h-10 fill-current text-transparent stroke-black stroke-1 dark:stroke-white' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="9" r="3" /><circle cx="12" cy="12" r="10"/><path d="M17.97 20c-.16-2.892-1.045-5-5.97-5s-5.81 2.108-5.97 5" strokeLinecap="round"/></svg>
+        <section className='flex gap-2 items-center gap-2'>
+          {avatarUrl ? (
+            <div className="avatar">
+              <div className="w-16 rounded-xl">
+                  <img src={avatarUrl} alt="User avatar" />
+              </div>
+            </div>
+             ) : (
+            <svg 
+              className="h-10 w-10 stroke-black stroke-1 dark:stroke-white" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="12" cy="9" r="3" />
+              <circle cx="12" cy="12" r="10" />
+              <path 
+                  d="M17.97 20c-.16-2.892-1.045-5-5.97-5s-5.81 2.108-5.97 5" 
+                  strokeLinecap="round"
+              />
+            </svg>
+          )}
           <section className=' text-left'>
-            <h2 className='font-semibold'>{userName}</h2>    
+            <h2 className='font-semibold'>{userDetails?.name} {userDetails?.surname}</h2>    
             {stars}
           </section>
         </section>
@@ -28,7 +128,8 @@ const UserProfileInfo: React.FC<UserProfileInfoProps> = ({ userName, rating, sho
           <button className='p-2 bg-orange-100 shadow-lg' type='button'><svg className='w-4 h-4 fill-current text-transparent stroke-black stroke-2 dark:stroke-white cursor-pointer' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m10.3 13.695 9.802-9.798m-9.523 10.239 2.223 4.444c.537 1.075.806 1.612 1.144 1.756a1 1 0 0 0 .903-.061c.316-.188.51-.757.898-1.893l4.2-12.298c.338-.99.506-1.485.39-1.813a1 1 0 0 0-.609-.61c-.328-.115-.823.054-1.813.392l-12.297 4.2c-1.137.387-1.705.581-1.893.897a1 1 0 0 0-.061.904c.144.338.681.607 1.755 1.143l4.445 2.223c.177.088.265.133.342.192a1 1 0 0 1 .182.181c.059.077.103.166.191.343Z" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
         </section>}
       </section>
-    )
+    </>
+  )
 }
 
 export default UserProfileInfo;

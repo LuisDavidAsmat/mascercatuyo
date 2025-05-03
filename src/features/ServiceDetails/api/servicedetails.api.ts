@@ -9,7 +9,7 @@ export const fetchServiceById = async (serviceId: number) =>
   try 
   {
     const {token} = useAuthStore.getState();
-    const response = await axios.get<any>(`${API_BASE_URL}/v1/services/offer/details/${serviceId}`, 
+    const response = await axios.get<any>(`${API_BASE_URL}/services/offer/details/${serviceId}`, 
       {
         headers: {
           'Authorization': `Bearer ${token}`,

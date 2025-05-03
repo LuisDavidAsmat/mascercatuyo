@@ -19,10 +19,10 @@ interface UserLocationProps
 const UserLocation: React.FC<UserLocationProps> = ({ mapDimensions, isFloating, isPopup, onCoordinatesChange }) => 
 {
     // Authentication and consent
-    const { isAuthenticated } = useAuthStore.getState();
+    const { isSessionValid } = useAuthStore.getState();
     const { hasConsent, setHasConsent } = useConsentStore();
 
-    if (!isAuthenticated()) 
+    if (!isSessionValid) 
     {
         return(
             <div className='flex gap-1 items-center'>

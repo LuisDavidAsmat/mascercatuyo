@@ -69,8 +69,7 @@ const OfferForm = ({
         </div>
           <section className='sm:flex gap-8 sm:px-48 mt-4 text-sm '>
             <section className='basis-2/4 flex flex-col justify-between space-y-4'>
-              <Carousel/>
-              <UserProfileInfo userName={'Pedro Perez'} rating={4} showContactButtons={false}/>
+              <UserProfileInfo rating={4} showContactButtons={false}/>
               <SelectField 
                 name='status'
                 showLabel={true}

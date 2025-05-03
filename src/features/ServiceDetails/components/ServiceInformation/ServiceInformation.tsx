@@ -73,9 +73,9 @@ const ServiceInformation: React.FC<ServiceInformationProps> = ({ serviceId }) =>
       <ServiceHeader category={service.category}/>
       <section className='sm:flex sm:gap-8 sm:px-64 mt-4 text-sm '>
         <section className='basis-2/4 flex flex-col justify-between space-y-4'>
-          <ServiceOfferOwner />
-                <ServiceStatus status={statusInfo?.label || ''} duration={durationInfo?.label || ''}/>
-                <ServiceCost cost={service.cost}/>
+          <ServiceOfferOwner serviceId={serviceId} rating={4} showContactButtons={true}/>
+          <ServiceStatus status={statusInfo?.label || ''} duration={durationInfo?.label || ''}/>
+          <ServiceCost cost={service.cost}/>
         </section>
         <section className='basis-2/4 px-4 sm:space-y-2'>             
           <ServiceDescription description={service.description}/>

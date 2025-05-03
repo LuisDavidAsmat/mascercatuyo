@@ -58,7 +58,6 @@ export const useAuthStore = create<AuthState>()(
           return false;
         }
           
-
         try 
         {
           if (!token.match(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/)) {      

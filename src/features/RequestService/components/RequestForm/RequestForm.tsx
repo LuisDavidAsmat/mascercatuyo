@@ -62,11 +62,11 @@ const RequestForm = ({
           <section className='sm:flex gap-8 sm:px-48 mt-4 text-sm '>
           
               <section className='basis-2/4 flex flex-col justify-between'>
-              <section className='basis-3/4 '>
+              {/* <section className='basis-3/4 '>
                   <Carousel/>
-              </section>
-              <section  className='basis-1/4'>
-                  <UserProfileInfo userName={'Pedro Perez'} rating={4} showContactButtons={false}/>
+              </section> */}
+              <section  className='basis-3/4'>
+                  <UserProfileInfo rating={4} showContactButtons={false}/>
               </section>
               </section>
     
