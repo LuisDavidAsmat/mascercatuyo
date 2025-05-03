@@ -1,13 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { ProviderOffer } from '../types/OfferServiceTypes'
 import { useOfferStore } from '../stores/useOfferStore'
-import { useNavigate } from 'react-router'
+
 
 
 export const useOfferForm = () => 
 {
-    const navigate = useNavigate();
-
     const reload = () => 
     {
         setTimeout(() => {

@@ -1,8 +1,3 @@
-interface SeachFormProps 
-{
-
-}
-
 const SearchForm = () => 
 {
   return (

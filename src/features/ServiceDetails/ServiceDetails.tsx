@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router';
-import OtherPosts from './components/OtherPosts';
+import { useParams } from 'react-router';
 import ServiceInformation from './components/ServiceInformation/ServiceInformation';
 import HireServiceOfferFlow from './components/HireServiceOfferFlow';
 

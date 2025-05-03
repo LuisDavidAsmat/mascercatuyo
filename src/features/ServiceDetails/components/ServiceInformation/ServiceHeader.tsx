@@ -1,5 +1,4 @@
 import React from 'react'
-import { categories } from '../../../../config/constants'
 import { useNavigate } from 'react-router'
 
 interface HeaderProps

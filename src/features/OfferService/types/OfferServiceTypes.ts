@@ -1,5 +1,7 @@
 export interface ProviderOffer
 {
+  estado: string
+  tiempoEstimado: string
   category: string,
   description: string,
   duration: string,

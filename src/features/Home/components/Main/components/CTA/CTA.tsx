@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import ImgHolder from '../../../../../../components/ImgHolder'
 import { useAuthStore } from '../../../../../../stores/auth.store'
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { getRolesForPath } from '../../../../../../config/constants';
 import ConfirmationModal from '../../../../../../components/ConfirmationModal';
 import CTAButtons from './CTAButtons';
@@ -10,7 +10,6 @@ import CTAButtons from './CTAButtons';
 const CTA = () => 
 {
   const { isAuthenticated, hasAnyRole } = useAuthStore();
-  const modalRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
 
   const [ modalVisible, setModalVisible] = useState(false);
@@ -23,6 +22,7 @@ const CTA = () =>
 
     if(!isAuth)
     {
+      console.log(pendingPath);
       
       navigate("/login");
       return;
@@ -33,7 +33,7 @@ const CTA = () =>
     if(requiredRoles && !hasAnyRole(requiredRoles))
     {
       setPendingPath(targetPath);
-      setModalVisible(true);
+      setModalVisible(true);      
 
       return;
     }

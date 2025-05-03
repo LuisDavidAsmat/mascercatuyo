@@ -3,7 +3,6 @@ import FloatingMenu from "../FloatingMenu/FloatingMenu";
 import { useAuthStore } from "../../../../../../stores/auth.store";
 import { useNavigate } from "react-router";
 import { useConsentStore } from "../../../../stores/useConsentStore";
-import ImgHolder from "../../../../../../components/ImgHolder";
 import apiClient from "../../../../../../services/apiClient";
 
 

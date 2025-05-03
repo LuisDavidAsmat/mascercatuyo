@@ -23,12 +23,12 @@ const FinalOfferModal = ({ show, formData, setShowConfirmationModal, setShowOffe
         <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg h-screen w-full">
             <ModalHeaderProps 
                 title='Prestación de Servicio'
-                subtitle={categories.find((category) => category.value === formData.categoria)?.label || ""}
+                subtitle={categories.find((category) => category.value === formData.category)?.label || ""}
             />
 
             <div className="sm:flex sm:gap-8 sm:px-64 mt-4 text-sm">
-                <PreviewDetails status={formData.estado} estimatedTime={formData.tiempoEstimado} cost={formData.costo}/>                
-                <PreviewDescription description={formData.descripcion}/>                
+                <PreviewDetails status={formData.estado} estimatedTime={formData.tiempoEstimado} cost={formData.cost}/>                
+                <PreviewDescription description={formData.description}/>                
             </div>
 
             <ActionButtons onEdit={() => setShowOfferPreview(false)} onPublish={() => setShowConfirmationModal(true)}/>

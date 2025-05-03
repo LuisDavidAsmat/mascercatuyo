@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import ImgHolder from '../../../../../../../components/ImgHolder'
 import { categories } from '../../../../../../../config/constants'
 

@@ -10,7 +10,7 @@ export interface SelectedFieldProps
     options: { value: string; label: string }[];
     label?: string;
     firstOption?: string;
-    error?: FieldError | Merge<FieldError, FieldErrorsImpl<T>> | undefined;
+    error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
     showLabel: boolean;
 };
 

@@ -44,7 +44,7 @@ export const useOfferStore = create<OfferState>((set, get) => (
 
     handleConfirmation: async (confirmed) => 
     {
-        const { formData, setShowOfferPreview, setShowSuccessModal } = get();
+        const { formData } = get();
         console.log(formData);
         
         if(!confirmed || !formData) return;

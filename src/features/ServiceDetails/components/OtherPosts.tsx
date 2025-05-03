@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const OtherPosts: React.FC = (props: Props) => 
+const OtherPosts: React.FC = () => 
 {
     const stars = Array.from({ length: 5 }, (_, index) => (
         <span key={index} className={index < 4 ? 'text-orange-600' : 'text-orange-600 font-semibold'}>

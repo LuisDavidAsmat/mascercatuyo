@@ -13,7 +13,6 @@ const Register = () =>
   const { 
     register, 
     handleSubmit, 
-    setValue,
     formState: { errors }
   } = useForm<RegisterFormData>({
     resolver: yupResolver(RegisterSchema),

@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import ImgHolder from '../../../components/ImgHolder';
-import { Link } from 'react-router';
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '../../../stores/auth.store';
 import apiClient from '../../../services/apiClient';
 
@@ -21,7 +19,7 @@ type ProfileDetailsProps = {
 const ProfileDetails = ({userDetails}: ProfileDetailsProps) => 
 {
 
-  const { userBasicInfo, isAuthenticated, clearAuth } = useAuthStore();
+  const { userBasicInfo } = useAuthStore();
 
   const [avatarUrl, setAvatarUrl] = useState("")
   useEffect(() => 

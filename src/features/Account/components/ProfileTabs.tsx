@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import UserActivity from '../../UserActivity/UserActivity';
 import UserNetwork from '../../UserNetwork/UserNetwork';
 import UserMessages from '../../UserMessages/UserMessages';

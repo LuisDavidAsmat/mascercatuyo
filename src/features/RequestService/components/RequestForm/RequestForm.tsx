@@ -1,7 +1,6 @@
 import { ClientRequestService } from '../../types/RequestServiceTypes';
 import SelectField from '../../../../components/SelectField';
 import { categories, plazos } from '../../../../config/constants';
-import Carousel from '../../../../components/Carousel';
 import UserProfileInfo from '../../../../components/UserProfileInfo';
 import TextAreaField from '../../../../components/TextAreaField ';
 import ConfirmationModal from '../../../../components/ConfirmationModal';

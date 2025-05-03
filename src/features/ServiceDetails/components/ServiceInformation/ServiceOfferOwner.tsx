@@ -1,9 +1,6 @@
 import React from 'react'
-
 import { useEffect, useState } from "react";
-import { useAuthStore } from '../../../../stores/auth.store';
 import apiClient from '../../../../services/apiClient';
-import { useParams } from 'react-router';
 import Carousel from '../../../../components/Carousel';
 
 
@@ -30,8 +27,6 @@ const ServiceOfferOwner: React.FC<ServiceOfferOwnerProps> = ({ rating, showConta
 
   const [userDetails, setUserDetails] = useState<MCTUserDetails | null>(null);
   const [providerId, setProviderId] = useState<number>(0);
-  const { userBasicInfo } = useAuthStore();
-
 
   const [avatarUrl, setAvatarUrl] = useState("")
   useEffect(() => {
@@ -68,69 +63,7 @@ const ServiceOfferOwner: React.FC<ServiceOfferOwnerProps> = ({ rating, showConta
   
     fetchOwnerData();
   
-  }, [serviceId]); // Dependency array should primarily depend on inputs needed for the fetch
-  // useEffect(() => 
-  // {
-  //   const fetchUserAvatar = async () => 
-  //   {
-  //     try 
-  //     {        
-  //       const serviceResponse = await apiClient.get<any>(`/services/offer/details/${serviceId}`); // Specify the expected data type (number)
-  //       const ownerUserId = serviceResponse.data.userId;
-  //       setProviderId(ownerUserId); 
-  //       const fetchUserDetails  = async () => {
-  //         try 
-  //         {
-  //           const userResponse = await apiClient.get<MCTUserDetails>(`/user/details-id`, 
-  //             {
-  //               params:
-  //               {
-  //                 userId: serviceResponse.data.userId
-  //               }
-  //             }
-  //           );
-
-   
-    
-  //           setUserDetails(userResponse.data); 
-            
-
-  //           const keyResponse = await apiClient.get(
-  //             `/user/img/${userResponse.data.id}/profile-image-key`
-  //           );
-            
-            
-  //           if (keyResponse.data) {
-  //             // 2. Get presigned URL if key exists
-  //             const urlResponse = await apiClient.get("/user/img/url", {
-  //                 params: { key: keyResponse.data },
-  //             });
-  //             setAvatarUrl(urlResponse.data);
-  //           }
-  //         } 
-  //         catch (error) 
-  //         {
-  //           console.error('Error fetching user details:', error);
-  //           throw new Error("Unable to obtain user details.")
-  //         }
-  //       }
-
-  //       fetchUserDetails();
-
-        
-          
-  //     } 
-  //     catch (error) 
-  //     {
-  //       console.error("Error loading avatar:", error);
-  //       throw new Error("Unable to obtain user profile image.")
-      
-  //     }
-  //   }
-  //     fetchUserAvatar();
-  
-  // }, [userBasicInfo?.userId, providerId])
-
+  }, [serviceId]); 
 
 
 

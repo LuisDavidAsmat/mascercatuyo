@@ -1,7 +1,6 @@
 import SelectField from '../../../../components/SelectField';
-import Carousel from '../../../../components/Carousel';
 import UserProfileInfo from '../../../../components/UserProfileInfo';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import TextAreaField from '../../../../components/TextAreaField ';
 import { ProviderOffer } from '../../types/OfferServiceTypes';
 import { categories, estados, tiempos } from '../../../../config/constants';

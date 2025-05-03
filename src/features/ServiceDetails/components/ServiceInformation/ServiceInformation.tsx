@@ -6,8 +6,6 @@ import ServiceCost from './ServiceCost'
 import ServiceDescription from './ServiceDescription'
 import { fetchServiceById } from '../../api/servicedetails.api'
 import { estados, tiempos } from '../../../../config/constants'
-import UserLocation from '../../../Home/components/Header/components/UserLocation/UserLocation'
-import MapPopup from '../../../Home/components/Header/components/UserLocation/MapPopup'
 import UserLocationMap from '../../../Home/components/Header/components/UserLocation/UserLocationMap'
 
 interface ServiceInformationProps
@@ -93,12 +91,3 @@ const ServiceInformation: React.FC<ServiceInformationProps> = ({ serviceId }) =>
 }
 
 export default ServiceInformation
-
-
-          {/* <MapPopup 
-            coordinates={{ lat: service.latitude, lng: service.longitude }}
-            onClose={() => { } }
-            onCoordinatesChange={() => {}}
-            mapDimensions={'w-[21rem] h-[16rem]'}
-            isFloating={false}
-          /> */}

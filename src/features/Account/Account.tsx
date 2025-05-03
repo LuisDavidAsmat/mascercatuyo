@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '../../stores/auth.store';
 import {  fetchUserDetails } from '../../services/api.service';
 import ProfileDetails from './components/ProfileDetails';
@@ -17,7 +17,7 @@ interface UserDetails
 
 const Account = () => 
 {
-    const { userBasicInfo, isAuthenticated, clearAuth } = useAuthStore();
+    const { userBasicInfo } = useAuthStore();
     const [userDetails, setUserDetails] = useState< UserDetails | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

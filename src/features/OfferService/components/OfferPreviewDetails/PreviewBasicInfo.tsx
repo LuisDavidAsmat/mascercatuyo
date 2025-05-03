@@ -15,7 +15,7 @@ const PreviewBasicInfo: React.FC<PreviewBasicInfoProps> = ({ status, estimatedTi
   return (
     <div className="basis-2/4 space-y-4">
       <Carousel />
-      <UserProfileInfo userName="Pepito Perez" rating={4} showContactButtons />
+      <UserProfileInfo rating={4} showContactButtons />
       <div className="w-full flex justify-between">
           <p className={`capitalize text-sm ${statusClasses[status] || ""}`}> {status}</p>
           <p className="capitalize text-sm">Tiempo estimado: {estimatedTime} horas</p>

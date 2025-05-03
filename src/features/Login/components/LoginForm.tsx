@@ -15,7 +15,7 @@ type LoginFormProps =
 };
 
 
-export const LoginForm: React.FC = ({ onSuccess, onError }: LoginFormProps) => 
+export const LoginForm: React.FC = ({ onError }: LoginFormProps) => 
 {
   const 
   {
